@@ -1,0 +1,219 @@
+ENTROPYFORGE 3.3 – VALIDAČNÍ REPORT
+===================================
+
+Datum: 2026-07-30
+Prostředí: Linux, Python 3.12.13, Node.js 24.14.0
+Testovaný build: EntropyForge 3.3
+
+
+1. VERDIKT
+----------
+
+Python i HTML zachovávají všechny funkce 3.1 a přidávají shodnou
+přísnou výstupní cestu přes validated_backend.py. Python backend volá
+přímo; HTML jej používá přes same-origin loopback bridge.
+
+Všechny dostupné automatické testy, syntaktické kontroly a statistické
+smoke testy prošly.
+
+Tento výsledek NENÍ FIPS, NIST, EUCC ani Common Criteria certifikace.
+Testovací prostředí není Windows, proto skutečné BCryptGenRandom a
+BCryptGetFipsAlgorithmMode nebylo možné v této kampani živě spustit.
+Windows ABI, stavy a chybové cesty jsou testovány řízeným test double;
+před formálním použitím je povinný on-target test a externí laboratoř.
+Balíček k tomu obsahuje run_windows_cng_live_test.bat; v tomto Linux
+prostředí korektně skončil stavem „profil není připraven“ bez výstupu.
+
+
+2. FUNKČNÍ SHODA
+----------------
+
+Funkce                         Python                         HTML
+-----------------------------  -----------------------------  -----------------------------
+Přísný profil                  přímý validated_backend        stejný backend přes bridge
+Přísný zdroj                   BCryptGenRandom                BCryptGenRandom
+Kontrola FIPS                  BCryptGetFipsAlgorithmMode     stav téhož backendu
+Fail-closed                    ano                            ano
+Tichý fallback                 zakázán                        zakázán
+Vlastní mix v přísné cestě     ne                             ne
+Běžný systémový základ         os.urandom()                   crypto.getRandomValues()
+Automatický režim              hybrid / external             hybrid / external
+Diverzifikace                  HMAC-SHA-512 + XOR             HMAC-SHA-512 + XOR
+Doménový prefix                EntropyForge-3.2|              EntropyForge-3.2|
+Intervalová čísla              rejection sampling            rejection sampling
+Unikátní čísla                 sparse Fisher–Yates            sparse Fisher–Yates
+Unikátní možnosti              deduplikace + Fisher–Yates     deduplikace + Fisher–Yates
+Hesla                          uniformní podmíněný výběr       uniformní podmíněný výběr
+Tokeny                         Hex / Base64 URL / UUID v4      Hex / Base64 URL / UUID v4
+Externí formáty                bin/hex/B64/dec/bits/efb/auto   bin/hex/B64/dec/bits/efb/auto
+Počet externích souborů        1 až 8                         1 až 8
+Diagnostika                    65 536 bajtů                    65 536 bajtů
+Ukazatel diverzity             1/3, 2/3, 3/3                  1/3, 2/3, 3/3
+Vzdálené spojení generátoru    žádné                          blokované CSP
+Lokální přísný bridge          není potřeba                  pouze same-origin loopback
+
+
+3. AUTOMATICKÉ TESTY
+--------------------
+
+Příkaz:
+
+    python3 tests/run_all.py
+
+Výsledek:
+
+- 47/47 Python unit a integračních testů: PASS
+- HTML core a simulované UI testy v Node.js: PASS
+- Python syntaktická kompilace: PASS
+- JavaScript syntaktická kontrola: PASS
+- HTML CSP hash: PASS
+
+Bezpečnostní a lokalizační testy 3.3:
+
+- přísný Python profil nepoužije os.urandom,
+- nedostupný profil se nevrátí na hybridní režim,
+- vypnutá FIPS zásada negeneruje ani jeden bajt,
+- každé CNG volání používá BCRYPT_USE_SYSTEM_PREFERRED_RNG,
+- selhání CNG je trvalý error state,
+- podkladový sunset je zobrazen bez falešného certifikačního tvrzení,
+- bridge vyžaduje relační cookie,
+- cross-origin požadavek je odmítnut před voláním backendu,
+- bridge vrací přesnou délku a kanonická Base64 data,
+- chyba bridge nevrátí částečný výstup,
+- chyba HTML přísné cesty je sticky a nepoužije Web Crypto,
+- manifest a obě UI musí výslovně zachovat omezení certifikačního
+  tvrzení,
+- Python překladová vrstva zachovává konstrukční verzi a kanonické
+  hodnoty režimů,
+- HTML se přepne čeština → angličtina → čeština,
+- změna jazyka zachová již vygenerovaný výstup,
+- dynamická validační chyba se v anglickém režimu zobrazí anglicky.
+
+Regrese funkcí 3.1:
+
+- společný known-answer HMAC-SHA-512 vektor,
+- CSP bez unsafe-inline skriptu a bez externích skriptů,
+- rejection sampling a pokrytí randbelow(10),
+- unikátní čísla a možnosti,
+- hesla s požadovanými skupinami,
+- Hex, Base64 URL a UUID v4,
+- všechny externí textové formáty,
+- vrstvení, odebrání a replay ochrana zdrojů,
+- kanonický .efb formát a kontroly integrity,
+- drand quorum, NIST exact refetch a RANDOM.ORG Signed API mock.
+
+
+4. STATISTICKÁ KAMPAŇ – PYTHON
+------------------------------
+
+Reprodukovatelný příkaz:
+
+    python3 tests/statistical_campaign.py
+
+Každý běžný režim vytvořil 1 048 576 bajtů. Přísný profil nebyl
+statisticky nahrazen falešným providerem; skutečná data se musí
+otestovat přímo na cílovém Windows.
+
+Režim system:
+
+    jedničky              50.00670 %
+    chí-kvadrát bajtů     297.646, p = 0.034269
+    monobit p             0.697957
+    runs p                0.090692
+    korelace lag-1        0.000380305, p = 0.696957
+    Shannon H             7.999795 bitu/bajt
+    duplicitní 64B bloky  0
+
+Režim hybrid:
+
+    jedničky              49.98182 %
+    chí-kvadrát bajtů     261.881, p = 0.370144
+    monobit p             0.292312
+    runs p                0.591369
+    korelace lag-1        0.000905918, p = 0.353585
+    Shannon H             7.999820 bitu/bajt
+    duplicitní 64B bloky  0
+
+Režim external:
+
+    jedničky              50.02258 %
+    chí-kvadrát bajtů     273.401, p = 0.204582
+    monobit p             0.190917
+    runs p                0.356188
+    korelace lag-1        -0.000289982, p = 0.766511
+    Shannon H             7.999812 bitu/bajt
+    duplicitní 64B bloky  0
+
+Vestavěná diagnostika:
+
+    system    10/10 PASS
+    hybrid    10/10 PASS
+    external  10/10 PASS
+
+
+5. ROVNOMĚRNOST OMEZENÉHO INTERVALU
+-----------------------------------
+
+V každém Python režimu bylo provedeno 200 000 volání randbelow(10):
+
+    system    chí2 = 11.4583, p = 0.245597
+    hybrid    chí2 =  5.2777, p = 0.809460
+    external  chí2 =  2.2518, p = 0.986831
+
+Klíčovým důkazem proti modulo bias je přímo testovaná implementace
+rejection sampling, nikoli samotný statistický vzorek.
+
+
+6. STATISTICKÝ SMOKE TEST – HTML
+--------------------------------
+
+Každý režim vytvořil 262 144 bajtů:
+
+    validated (mock)  jedničky 49.9840 %, chí2 253.10, duplicity 64B 0
+    system            jedničky 50.0187 %, chí2 193.86, duplicity 64B 0
+    hybrid            jedničky 50.0862 %, chí2 232.20, duplicity 64B 0
+    external          jedničky 49.9890 %, chí2 242.02, duplicity 64B 0
+
+Řádek validated ověřuje transport, délku a funkční cestu bridge pomocí
+test double. Není vydáván za statistický test Windows CNG.
+
+
+7. STATICKÁ BEZPEČNOSTNÍ KONTROLA
+---------------------------------
+
+- Generátory nepoužívají Math.random ani nekryptografický modul random.
+- Přísný profil přímo volá bcrypt.dll, kontroluje oba NTSTATUS výsledky
+  a nepřijímá uživatelský seed.
+- Přísná cesta je oddělena před os.urandom/Web Crypto a HMAC logikou.
+- HTML CSP povoluje connect-src pouze 'self'; ostatní zdroje mají
+  default-src 'none'.
+- Bridge naslouchá jen na 127.0.0.1 a náhodném portu.
+- Bridge kontroluje Host, Origin, HttpOnly SameSite cookie, JSON pole,
+  typy, velikosti a Content-Type.
+- CORS a OPTIONS nejsou povoleny.
+- Odpovědi mají no-store, nosniff, DENY frame a same-origin politiky.
+- Vstupy a názvy souborů se nevkládají jako HTML.
+- Externí data se dekódují striktně před kontrolou velikosti.
+- Žádný certifikační stav není použit jako dodatečný seed nebo odhad
+  entropie.
+
+
+8. CERTIFIKAČNÍ ZÁVĚR
+---------------------
+
+Verze 3.3 je podstatně lépe připravena pro odborný audit, protože má
+malou přímou přísnou cestu, jasnou hranici tvrzení, fail-closed chování
+a certifikační podklady.
+
+Stále chybí:
+
+- cílový on-Windows integrační test,
+- zmrazená podporovaná konfigurace,
+- aktivní vhodný FIPS 140-3 certifikát podkladového modulu,
+- podpis a reprodukovatelný produkční build,
+- nezávislý audit a penetrační test,
+- smlouva a podání přes NVLAP laboratoř,
+- vydaný certifikát.
+
+Do té doby se smí používat formulace „kryptograficky bezpečně navržený“
+nebo „používá přímý Windows CNG profil“, nikoli „certifikovaný“.

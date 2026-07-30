@@ -1,0 +1,65 @@
+{
+  "schema": "entropyforge.validation-manifest.v1",
+  "generated_utc": "2026-07-30T00:00:00Z",
+  "project": {
+    "name": "EntropyForge",
+    "version": "3.3",
+    "certification_status": "not-certified",
+    "audit_status": "internal-tests-only"
+  },
+  "target": {
+    "scheme": "FIPS 140-3",
+    "level": 1,
+    "strategy": "strict integration with a validated Windows CNG module",
+    "product_certificate_issued": false,
+    "laboratory_review_completed": false
+  },
+  "strict_profile": {
+    "id": "entropyforge.windows-cng.strict.v1",
+    "api": "BCryptGenRandom",
+    "flags": [
+      "BCRYPT_USE_SYSTEM_PREFERRED_RNG"
+    ],
+    "fips_policy_check": "BCryptGetFipsAlgorithmMode",
+    "custom_mixer_in_output_path": false,
+    "external_entropy_in_output_path": false,
+    "silent_fallback": false
+  },
+  "embedded_evidence": [
+    {
+      "certificate": "4825",
+      "module": "Microsoft Windows Cryptographic Primitives Library",
+      "standard": "FIPS 140-2",
+      "level": 1,
+      "status_observed": "Active",
+      "status_observed_on": "2026-07-30",
+      "sunset_date": "2026-09-21",
+      "software_versions": [
+        "10.0.22000"
+      ],
+      "url": "https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4825",
+      "scope_limit": "Evidence applies only under the certificate and Security Policy; it is not an EntropyForge certificate."
+    }
+  ],
+  "fips_140_3_dependency": {
+    "module_family": "Microsoft Windows Cryptographic Primitives Library for Windows 11 23H2/24H2",
+    "status_observed": "implementation-under-test",
+    "status_observed_on": "2026-07-30",
+    "may_be_claimed_as_validated": false,
+    "url": "https://csrc.nist.gov/projects/cryptographic-module-validation-program/modules-in-process/iut-list"
+  },
+  "prohibited_claims": [
+    "EntropyForge is FIPS certified",
+    "EntropyForge is NIST certified",
+    "EntropyForge is SP 800-90B validated",
+    "EntropyForge is SP 800-90C validated",
+    "EntropyForge is a certified physical or hardware RNG"
+  ],
+  "external_actions_required": [
+    "Freeze a supported Windows build and hardware scope",
+    "Select and contract an NVLAP-accredited laboratory",
+    "Confirm the underlying module certificate and Security Policy",
+    "Complete vendor evidence and operational testing",
+    "Submit through the laboratory and receive an issued certificate before making a certification claim"
+  ]
+}

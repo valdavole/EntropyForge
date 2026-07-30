@@ -1,0 +1,74 @@
+name: Hlášení chyby
+description: Reprodukovatelný problém s funkcí nebo rozhraním
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bezpečnostní zranitelnost nepiš veřejně. Použij postup v SECURITY.md.
+  - type: dropdown
+    id: interface
+    attributes:
+      label: Rozhraní
+      options:
+        - Python GUI
+        - Samostatné HTML
+        - HTML přes Windows CNG bridge
+        - Vzdálený sběrač
+        - Testy nebo dokumentace
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Verze
+      placeholder: "3.2"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Prostředí
+      description: Operační systém, build Windows, Python a prohlížeč podle relevance.
+      placeholder: "Windows 11 24H2, Python 3.14, Chrome 149"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Postup reprodukce
+      placeholder: |
+        1. Spustím…
+        2. Vyberu…
+        3. Zobrazí se…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Očekávaný výsledek
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Skutečný výsledek
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostika
+      description: Odstraň API klíče, osobní údaje a citlivé náhodné výstupy.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Kontrola
+      options:
+        - label: Ověřil jsem, že problém není již nahlášený.
+          required: true
+        - label: Hlášení neobsahuje API klíč ani citlivá data.
+          required: true

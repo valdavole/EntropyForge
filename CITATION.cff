@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Pokud EntropyForge použijete v odborné práci, citujte jej prosím takto."
+title: "EntropyForge"
+type: software
+authors:
+  - family-names: "Novák"
+    given-names: "Filip"
+version: "3.3"
+date-released: "2026-07-30"
+license: MIT
+abstract: >-
+  Lokální generátor kryptograficky bezpečných čísel, losování, hesel,
+  tokenů a UUID s Python a HTML rozhraním, volitelnou diverzifikací,
+  externími zdroji a přímým profilem Windows CNG.
+keywords:
+  - cryptography
+  - csprng
+  - random-number-generator
+  - web-crypto
+  - windows-cng

@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: Bezpečnost
+      labels:
+        - security
+    - title: Nové funkce
+      labels:
+        - enhancement
+    - title: Opravy
+      labels:
+        - bug
+    - title: Dokumentace a údržba
+      labels:
+        - documentation
+        - dependencies
+    - title: Ostatní změny
+      labels:
+        - "*"

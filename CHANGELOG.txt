@@ -1,0 +1,204 @@
+ENTROPYFORGE – HISTORIE ZMĚN
+============================
+
+3.3 – 2026-07-30
+----------------
+
+Dvojjazyčné rozhraní
+
+- Python i HTML lze za běhu kompletně přepnout mezi češtinou a
+  angličtinou.
+- Překládají se statické prvky, dynamické stavy, validační chyby,
+  diagnostika, technické reporty, dialogy i texty přísného profilu.
+- Přepnutí zachová rozepsané formuláře, načtené externí zdroje,
+  vygenerované výstupy, zvolený režim i interní stav generátoru.
+- Výchozí ukázkové možnosti se přeloží pouze tehdy, pokud je uživatel
+  sám neupravil.
+- Volba jazyka se ukládá jen lokálně: v uživatelském nastavení Python
+  aplikace nebo v localStorage daného prohlížeče.
+
+Bezpečnost a shoda verzí
+
+- Kryptografická konstrukce zůstala beze změny a dál používá doménový
+  prefix EntropyForge-3.2|; známý testovací vektor proto zůstává platný.
+- Jazyková vrstva nikdy nevstupuje do seedování, směšování ani
+  generovaného výstupu.
+- HTML CSP hash byl po změně vloženého skriptu znovu vypočítán.
+- Přidány automatické testy přepnutí oběma směry a zachování
+  vygenerovaného výstupu.
+- Celkem 47 Python testů plus HTML/Node integrační test.
+
+3.2 – 2026-07-30
+----------------
+
+Přísný Windows CNG profil
+
+- Přidána oddělená výstupní cesta přes BCryptGenRandom s
+  BCRYPT_USE_SYSTEM_PREFERRED_RNG.
+- Před každým použitím se kontroluje BCryptGetFipsAlgorithmMode.
+- Vlastní HMAC, časování a externí data jsou v přísné cestě záměrně
+  vyřazena; všechny původní režimy zůstaly zachovány samostatně.
+- Selhání profilu je fail-closed a nikdy tiše nepřejde na os.urandom,
+  Web Crypto ani jiný zdroj.
+- Přidán trvalý error state a kontrola opakovaného 64B bloku.
+- Stav přesně rozlišuje technickou připravenost, shodu offline
+  certifikačních podkladů a certifikát celé aplikace.
+
+Shoda Python a HTML
+
+- Python GUI používá validated_backend.py přímo.
+- HTML používá tentýž backend přes loopback-only validated_bridge.py.
+- Bridge kontroluje Host, Origin a session cookie, zakazuje CORS,
+  neloguje výstupy a přijímá jen přesný omezený JSON formát.
+- CSP HTML povoluje pouze connect-src 'self'; vzdálená spojení zůstávají
+  blokovaná.
+- Přidány run_validated_html.bat, check_validated_profile.bat a
+  run_windows_cng_live_test.bat.
+
+Dokumentace a testy
+
+- Přidán pracovní certifikační balík: Security Policy draft, threat
+  model, finite-state model, trasovatelnost a laboratorní checklist.
+- Dokumentace výslovně zakazuje tvrdit, že EntropyForge je certifikovaný.
+- Doménový prefix běžných směšovaných režimů povýšen na
+  EntropyForge-3.2|.
+- Rozšířena sada o backend, bridge, cross-origin a no-fallback testy.
+- Celkem 44 Python testů plus HTML/Node integrační test.
+- Doplněna struktura veřejného GitHub repozitáře, MIT licence, citační
+  metadata, bezpečnostní zásady, šablony příspěvků a návod k publikaci.
+- Přidány GitHub Actions testy pro Windows/Linux, CodeQL a Dependabot.
+- Přidán nástroj tools/update_html_csp.py, který po úpravě vloženého
+  JavaScriptu bezpečně přepočítá nebo ověří CSP hash.
+- Stavový text přesněji říká, že časování je aktivně použito jako
+  bonusová diverzifikace; formální nulový min-entropický kredit zůstává.
+- Výchozí Python okno zvětšeno na 1240 × 880 pixelů.
+
+3.1 – 2026-07-29
+----------------
+
+Vrstvení zdrojů
+
+- Stávající systémový, diverzifikovaný i externí režim zůstaly zachovány.
+- Externí režim nyní vrství až osm souborů či balíčků místo nahrazení
+  předchozího zdroje novým.
+- Shodný kanonický zdroj se v jedné relaci odmítne jako duplikát.
+- Replay zůstane odmítnutý i po odebrání zdroje až do restartu aplikace.
+- Stejná komponenta v různých balíčcích se nezapočítá jako další zdroj.
+- Přidáno odebrání posledního zdroje i všech zdrojů.
+- Po každé změně se externí stav znovu jednosměrně vytvoří z 512bitových
+  otisků, čerstvých systémových bajtů a interního poolu.
+- Třívrstvý ukazatel zůstal zachován; u třetí vrstvy nyní ukazuje také
+  skutečný počet externích komponent.
+
+Vzdálené fyzické a veřejné zdroje
+
+- Přidán samostatný remote_entropy_collector.py s GUI a příkazovou řádkou.
+- Generátor zůstává offline; síť používá pouze výslovně spuštěný sběrač.
+- drand quicknet používá připnutý chain hash, tři relaye, quorum nejméně
+  2/3, přesnou délku podpisu a kontrolu SHA-256 podpisu.
+- NIST Beacon 2.0 se načte jako poslední pulse a jeho přesné URI se
+  opakovaně zkontroluje.
+- Volitelný RANDOM.ORG Signed API žádá čerstvý 4096B blok atmosférického
+  šumu, váže požadavek náhodným nonce a ověřuje digitální podpis.
+- API klíč RANDOM.ORG se neukládá do souboru ani technického reportu.
+- HTTPS přesměrování nesmí odeslat požadavek ani API klíč na jiný origin.
+- Veřejné beacony jsou výslovně označeny jako veřejná diverzifikace,
+  nikoli jako tajná entropie.
+- Data RANDOM.ORG jsou označena jako provider-known: poskytovatel je zná.
+- Dokumentace upozorňuje, že .efb s RANDOM.ORG není šifrovaný a má se
+  chránit jako citlivý soubor.
+
+EntropyForge Remote Bundle
+
+- Přidán přenositelný formát .efb společný pro Python i HTML.
+- Dva kanonické JSON obaly, striktní UTF-8, unikátní pole a identifikátory.
+- SHA-256 celého payloadu a každé komponenty.
+- Jedna až osm komponent, každá 32 B až 128 KiB; payload nejvýše 1 MiB.
+- Poškozené, překódované, duplicitní a konstantní balíčky se odmítnou.
+- Obě aplikace umějí .efb automaticky rozpoznat i zvolit ručně.
+
+Testy a dokumentace
+
+- Python sada rozšířena na 28 unit testů včetně formátu .efb a plně
+  mockovaných odpovědí drand, NIST a RANDOM.ORG.
+- HTML/Node sada testuje stejný kanonický parser, vrstvení, replay,
+  odebrání posledního i všech zdrojů a všechny původní generátory.
+- Proveden živý integrační test drand + NIST a následný import balíčku.
+- Aktualizován bezpečnostní model, README, validační report a kontrolní
+  součty.
+
+
+3.0 – 2026-07-29
+----------------
+
+Upřesnění uživatelského rozhraní
+
+- Zelený stavový štítek má horizontálně i vertikálně vystředěný text.
+- Čtyři vždy plné čárky byly nahrazeny třemi vrstvami diverzifikace:
+  1/3 systémový, 2/3 hybridní a 3/3 vícezdrojový režim.
+- Rozhraní výslovně rozlišuje stejnou kryptografickou garanci všech
+  režimů od rostoucí diverzity konstrukce.
+
+Bezpečnostní jádro
+
+- Systémový CSPRNG je nyní čerstvým základem každého výstupu ve všech
+  režimech: os.urandom() v Pythonu a crypto.getRandomValues() v HTML.
+- Vlastní doplňkový proud byl nahrazen doménově odděleným
+  HMAC-SHA-512 expanderem.
+- Diverzifikovaný výstup je XOR čerstvého systémového proudu a
+  doplňkového HMAC proudu.
+- Interní stav se aktualizuje jednosměrně a pro každý přímý požadavek
+  dostává nový 64bajtový systémový seed.
+- Přidána průběžná kontrola opakovaného 64bajtového systémového bloku.
+- HTML operace nad RNG stavem jsou serializované; Python stav je chráněn
+  zámkem.
+- Omezené intervaly v obou verzích používají stejné rejection sampling
+  bez modulo zkreslení.
+
+Externí zdroje
+
+- Přidána explicitní volba formátu: Auto, binární, hex, Base64/Base64 URL,
+  desítkové bajty a bity.
+- Opraveno dekódování nevyplněného Base64 URL.
+- Minimální velikost 4096 bajtů se kontroluje po skutečném dekódování;
+  textový obal už kontrolu neobejde.
+- Maximální velikost souboru i dekódovaných dat je 32 MiB.
+- Automatické rozpoznání je striktní a neplatný tisknutelný text se
+  potichu nepoužije jako binární zdroj.
+- SHA-256 otisk se počítá z kanonických dekódovaných bajtů, takže je
+  shodný napříč kódováními.
+- Základní kontrola je výslovně označena jen jako detekce hrubé
+  degenerace, nikoli certifikace entropie.
+- HTML po načtení uvolní referenci na vybraný File objekt.
+
+Funkční shoda a kvalita
+
+- Python a HTML mají shodné režimy, limity, formáty, HMAC konstrukci,
+  algoritmy čísel, losování, hesel, tokenů a UUID.
+- Maximální délka celočíselné meze je v obou verzích 2000 číslic.
+- Přidán společný limit přibližně 8 000 000 znaků výstupu.
+- V unikátním losování se duplicitní vstupní řádky před výběrem sloučí.
+- Generátor hesel používá odmítnutí celého kandidáta; výsledky jsou
+  rovnoměrné mezi hesly splňujícími zvolené skupiny.
+- UUID v4 správně nastavuje bity verze a varianty.
+- Ovládací prvky HTML zůstávají vypnuté, dokud bezpečně neskončí
+  inicializace Web Crypto.
+- HTML má přísnou Content Security Policy bez síťových spojení a s
+  hashově uzamčeným vloženým JavaScriptem.
+- Uživatelské indikátory už netvrdí neověřený počet bitů entropie.
+- „Test náhodnosti“ byl poctivě přejmenován na funkční diagnostiku.
+
+Testy a dokumentace
+
+- Přidány automatické unit testy Python jádra.
+- Přidán Node.js test samostatné HTML verze včetně simulace UI.
+- Obě verze sdílejí known-answer test HMAC expanderu.
+- Přidány README, bezpečnostní model, validační report a SHA-256
+  kontrolní součty.
+- Windows spouštěče ověřují Python 3.10 nebo novější.
+
+
+2.0
+---
+
+Původní uživatelská verze, ze které vychází přepracování 3.0.

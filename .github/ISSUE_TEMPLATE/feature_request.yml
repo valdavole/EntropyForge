@@ -1,0 +1,29 @@
+name: Návrh funkce
+description: Návrh nové funkce nebo zlepšení
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Jaký problém návrh řeší?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Navrhované řešení
+    validations:
+      required: true
+  - type: textarea
+    id: security
+    attributes:
+      label: Dopad na bezpečnost a shodu Python/HTML
+      description: Uveď nové zdroje důvěry, fallbacky, síťová spojení nebo změny rozdělení.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Zvažované alternativy

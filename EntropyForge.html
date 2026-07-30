@@ -1,0 +1,1105 @@
+<!doctype html>
+<!-- EntropyForge 3.3 build: bilingual-ui-2026-07-30 -->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-I0NDXqQJmTzRlezTl8uoiu/q41vEVaFFkRc7lWn3cnE='; style-src 'unsafe-inline'; connect-src 'self'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'">
+<title>EntropyForge 3.3</title>
+<style>
+:root{color-scheme:dark;--bg:#080d14;--panel:#101925;--panel2:#162233;--text:#edf5ff;--muted:#9db0c8;--line:#293a50;--accent:#68d3ff;--accent2:#97f0c1;--warn:#ffd37a;--bad:#ff8d9a;--shadow:#0008}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0,#19304c 0,#0a111b 38%,var(--bg) 72%);color:var(--text);font:15px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1120px;margin:auto;padding:24px 18px 48px}
+.top{display:grid;grid-template-columns:1fr minmax(280px,390px);gap:18px;align-items:stretch}.brand{padding:10px 2px}.brand-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.brand h1{font-size:38px;letter-spacing:-1.4px;margin:0}.brand p{color:var(--muted);max-width:650px;margin:5px 0 12px}.language-control{flex:0 0 auto}.language-control label{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.language-control select{min-width:112px;border:1px solid var(--line);background:#07101a;color:var(--text);border-radius:10px;padding:7px 9px;outline:none}.language-control select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #68d3ff18}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#0b1420;border-radius:999px;padding:5px 9px;font-size:12px;color:var(--muted)}
+.quality{background:linear-gradient(145deg,#15263a,#0e1723);border:1px solid #38516e;border-radius:18px;padding:17px;box-shadow:0 18px 50px var(--shadow)}.quality-head{display:flex;justify-content:space-between;gap:15px}.quality-title{font-size:13px;color:var(--muted)}.quality-name{font-size:21px;font-weight:800;margin-top:2px}.quality-badge{align-self:start;display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-line;line-height:1.15;min-width:123px;min-height:46px;background:var(--accent2);color:#07150e;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:900}.meter-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin:13px 0 8px}.meter{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0}.meter i{height:8px;border-radius:999px;background:#26364a}.meter i.on{background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 0 15px #6fe2cf66}.quality-level-text{min-width:92px;text-align:right;color:var(--muted);font-size:12px;font-weight:800}.quality-desc{color:var(--muted);font-size:13px}.source-line{display:flex;justify-content:space-between;gap:10px;margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-size:13px}.source-line span:last-child{font-weight:700}
+.notice{margin:17px 0 10px;border:1px solid #38516e;background:#0d1724;border-radius:13px;padding:11px 13px;color:#c9daee}.notice strong{color:#fff}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 10px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 13px;border-radius:11px}.tab.active{background:var(--accent);color:#07131d;border-color:transparent;font-weight:850}
+.card{display:none;background:linear-gradient(180deg,var(--panel),#0d151f);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 18px 52px var(--shadow)}.card.active{display:block}.card h2{margin:0 0 13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;align-items:end}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}.field input,.field select,textarea{width:100%;border:1px solid var(--line);background:#07101a;color:var(--text);border-radius:11px;padding:10px 11px;outline:none}.field input:focus,.field select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px #68d3ff18}textarea{min-height:145px;resize:vertical}.checkline{display:flex;gap:15px;flex-wrap:wrap;margin:13px 0;color:var(--muted)}
+.primary{border:0;background:linear-gradient(110deg,var(--accent),#94edc6);color:#06131a;border-radius:11px;padding:11px 16px;font-weight:900}.secondary{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 11px}.danger{border-color:#6a3841;color:#ffc5cc}.primary:disabled,.secondary:disabled{cursor:not-allowed;opacity:.5}.output{white-space:pre-wrap;word-break:break-all;min-height:175px;max-height:430px;overflow:auto;background:#050a10;border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:14px;font:14px/1.52 ui-monospace,SFMono-Regular,Consolas,monospace}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.hint{font-size:13px;color:var(--muted);margin-top:8px}.statusbar{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-top:11px;color:var(--muted);font-size:13px}.ok{color:var(--accent2)}.warning{color:var(--warn)}.error{color:var(--bad)}
+.mode-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px}.mode-card{appearance:none;width:100%;position:relative;border:1px solid var(--line);background:#0a131e;color:var(--text);border-radius:14px;padding:14px;text-align:left;transition:border-color .16s,box-shadow .16s,background .16s,transform .16s}.mode-card:hover{border-color:#45617e;background:#0c1724;transform:translateY(-1px)}.mode-card:focus-visible{outline:3px solid #68d3ff45;outline-offset:2px}.mode-card.active-mode{border-color:var(--accent);background:linear-gradient(145deg,#0d1b2a,#0a141f);box-shadow:inset 0 0 0 1px #68d3ff26,0 0 24px #68d3ff12}.mode-card.active-mode::after{content:attr(data-active-label);position:absolute;top:11px;right:11px;border-radius:999px;background:var(--accent2);color:#07150e;padding:3px 7px;font-size:10px;font-weight:900}.mode-card.unavailable{opacity:.68;padding-bottom:42px}.mode-card.unavailable::before{content:attr(data-unavailable-label);position:absolute;left:14px;right:14px;bottom:12px;color:var(--warn);font-size:9px;font-weight:800;line-height:1.2;text-align:right;white-space:normal}.mode-card h3{margin:0 72px 4px 0}.mode-card p{color:var(--muted);font-size:13px;margin:0}.mode-card .tag{display:inline-block;margin-top:9px;border-radius:999px;padding:4px 8px;background:#17273a;font-size:12px}.hardware-box{margin-top:15px;border:1px dashed #48607c;border-radius:14px;padding:14px;background:#09121c;scroll-margin-top:16px}.hardware-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.hardware-state{font-size:13px;color:var(--muted)}details{border:1px solid var(--line);background:#0a121c;border-radius:13px;padding:12px 13px;margin-top:14px}summary{cursor:pointer;font-weight:800}.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.info-block{border:1px solid var(--line);background:#09121d;border-radius:13px;padding:13px}.info-block h3{margin:0 0 5px}.info-block p{margin:0;color:var(--muted);font-size:13px}.report{font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;background:#050a10;border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;min-height:90px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:760px){.top{grid-template-columns:1fr}.brand h1{font-size:32px}.brand-title-row{align-items:center}.quality{order:-1}.statusbar{display:block}.statusbar span{display:block;margin-top:5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <header class="brand">
+      <div class="brand-title-row">
+        <h1>EntropyForge 3.3</h1>
+        <div class="language-control">
+          <label for="languageSelect">Jazyk</label>
+          <select id="languageSelect" aria-label="Jazyk rozhraní"><option value="cs">Čeština</option><option value="en">English</option></select>
+        </div>
+      </div>
+      <p>Offline generátor s Web Crypto, bezpečným vícezdrojovým vrstvením a odděleným přísným profilem Windows CNG přes lokální bridge. Žádná telemetrie ani vzdálené spojení v generátoru.</p>
+      <div class="chips"><span class="chip">Web Crypto</span><span class="chip">Windows CNG</span><span class="chip">HMAC‑SHA‑512</span><span class="chip">bez modulo zkreslení</span><span class="chip">offline generátor</span><span class="chip">více externích zdrojů</span></div>
+    </header>
+    <aside class="quality" aria-live="polite">
+      <div class="quality-head"><div><div class="quality-title">Bezpečnostní stav</div><div id="qualityName" class="quality-name">Kryptograficky bezpečný • diverzifikovaný</div></div><span id="qualityBadge" class="quality-badge">DIVERZIFIKOVANÝ</span></div>
+      <div class="meter-row"><div id="qualityMeter" class="meter" aria-label="Dvě ze tří vrstev diverzifikace; garantovaný základ je systémový CSPRNG" title="Čárky ukazují vrstvy diverzifikace, nikoli počet garantovaných bitů entropie."><i class="on"></i><i class="on"></i><i></i></div><span id="qualityLevelText" class="quality-level-text">VRSTVY: 2/3</span></div>
+      <div id="qualityDesc" class="quality-desc">Dvě ze tří vrstev diverzifikace. Čerstvý systémový CSPRNG zůstává garantovaným základem.</div>
+      <div class="source-line"><span>Aktivní zdroj</span><span id="activeEngine">Diverzifikovaný software</span></div>
+    </aside>
+  </div>
+
+  <div class="notice"><strong>Nemusíš nic nastavovat.</strong> Automatický režim vždy zachová čerstvý systémový CSPRNG a bezpečně přimíchá dostupné doplňkové zdroje. Přísný Windows profil je oddělený, nepoužívá vlastní směšovač a není vydáván za certifikát celé aplikace.</div>
+
+  <nav id="toolTabs" class="tabs" aria-label="Nástroje">
+    <button class="tab active" data-tab="numbers">Čísla</button>
+    <button class="tab" data-tab="choices">Losování</button>
+    <button class="tab" data-tab="passwords">Hesla</button>
+    <button class="tab" data-tab="tokens">Tokeny</button>
+    <button class="tab" data-tab="quality">Zdroje a diagnostika</button>
+    <button class="tab" data-tab="info">Jak to funguje</button>
+  </nav>
+
+  <section id="numbers" class="card active">
+    <h2>Náhodná čísla</h2>
+    <div class="grid">
+      <div class="field"><label for="nMin">Minimum včetně</label><input id="nMin" value="1" inputmode="numeric"></div>
+      <div class="field"><label for="nMax">Maximum včetně</label><input id="nMax" value="100" inputmode="numeric"></div>
+      <div class="field"><label for="nCount">Počet čísel</label><input id="nCount" type="number" min="1" max="100000" value="1"></div>
+      <label><input id="nUnique" type="checkbox"> Bez opakování</label>
+      <button class="primary" id="genNumbers">Generovat</button>
+    </div>
+    <div class="hint">Podporuje celá čísla až do 2000 číslic; celkový výstup je bezpečně omezen.</div>
+    <div class="output" id="outNumbers" aria-live="polite"></div>
+    <div class="actions"><button class="secondary" data-copy="outNumbers">Kopírovat</button><button class="secondary" data-save="outNumbers">Uložit TXT</button><button class="secondary" data-clear="outNumbers">Vymazat</button></div>
+  </section>
+
+  <section id="choices" class="card">
+    <h2>Losování možností</h2>
+    <div class="field"><label for="choiceInput">Jedna možnost na řádek</label><textarea id="choiceInput">Kámen
+Nůžky
+Papír</textarea></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="field"><label for="choiceCount">Počet výběrů</label><input id="choiceCount" type="number" min="1" max="100000" value="1"></div>
+      <label><input id="choiceUnique" type="checkbox"> Bez opakování</label>
+      <button class="primary" id="genChoices">Losovat</button>
+    </div>
+    <div class="hint">V režimu bez opakování se shodné řádky sloučí. S opakováním mohou duplicity sloužit jako váhy.</div>
+    <div class="output" id="outChoices" aria-live="polite"></div>
+    <div class="actions"><button class="secondary" data-copy="outChoices">Kopírovat</button><button class="secondary" data-save="outChoices">Uložit TXT</button><button class="secondary" data-clear="outChoices">Vymazat</button></div>
+  </section>
+
+  <section id="passwords" class="card">
+    <h2>Silná hesla</h2>
+    <div class="grid">
+      <div class="field"><label for="passLength">Délka hesla</label><input id="passLength" type="number" min="4" max="4096" value="24"></div>
+      <div class="field"><label for="passCount">Počet hesel</label><input id="passCount" type="number" min="1" max="5000" value="1"></div>
+      <button class="primary" id="genPasswords">Generovat</button>
+    </div>
+    <div class="checkline"><label><input id="pLower" type="checkbox" checked> malá písmena</label><label><input id="pUpper" type="checkbox" checked> VELKÁ písmena</label><label><input id="pDigits" type="checkbox" checked> číslice</label><label><input id="pSymbols" type="checkbox" checked> symboly</label></div>
+    <div class="hint">Celé heslo se vybírá rovnoměrně. Nevyhovující kandidát se zahodí a vygeneruje znovu.</div>
+    <div class="output" id="outPasswords" aria-live="polite"></div>
+    <div class="actions"><button class="secondary" data-copy="outPasswords">Kopírovat</button><button class="secondary" data-save="outPasswords">Uložit TXT</button><button class="secondary" data-clear="outPasswords">Vymazat</button></div>
+  </section>
+
+  <section id="tokens" class="card">
+    <h2>Tokeny a identifikátory</h2>
+    <div class="grid">
+      <div class="field"><label for="byteCount">Počet bajtů</label><input id="byteCount" type="number" min="1" max="1048576" value="32"><div id="tokenByteHint" class="hint">Platí pro Hex a Base64 URL.</div></div>
+      <div class="field"><label for="tokenCount">Počet výstupů</label><input id="tokenCount" type="number" min="1" max="10000" value="1"></div>
+      <div class="field"><label for="tokenFormat">Formát</label><select id="tokenFormat"><option>Hex</option><option>Base64 URL</option><option>UUID v4</option></select></div>
+      <button class="primary" id="genTokens">Generovat</button>
+    </div>
+    <div class="output" id="outTokens" aria-live="polite"></div>
+    <div class="actions"><button class="secondary" data-copy="outTokens">Kopírovat</button><button class="secondary" data-save="outTokens">Uložit TXT</button><button class="secondary" data-clear="outTokens">Vymazat</button></div>
+  </section>
+
+  <section id="quality" class="card">
+    <h2>Zdroje a funkční diagnostika</h2>
+    <div id="modeCards" class="mode-cards" aria-label="Volba zdrojů náhodnosti">
+      <button type="button" class="mode-card unavailable" data-mode="validated" data-active-label="AKTIVNÍ" data-unavailable-label="SPUSŤ LOKÁLNÍ BRIDGE" aria-pressed="false" aria-disabled="true"><h3>Přísný Windows CNG profil</h3><p>Přímé BCryptGenRandom bez vlastního HMAC mixéru. Vyžaduje lokální bridge a zapnutou systémovou FIPS zásadu.</p><span class="tag">PŘÍMÉ CNG • NE CERTIFIKÁT APLIKACE</span></button>
+      <button type="button" class="mode-card" data-mode="system" data-active-label="AKTIVNÍ" aria-pressed="false"><h3>Systémový CSPRNG</h3><p>Nejjednodušší auditovatelná varianta. Přímo používá kryptografický generátor prohlížeče.</p><span class="tag">KRYPTOGRAFICKY BEZPEČNÝ</span></button>
+      <button type="button" class="mode-card" data-mode="hybrid" data-active-label="AKTIVNÍ" aria-pressed="false"><h3>Diverzifikovaný software</h3><p>Stejný systémový základ plus HMAC proud a časování událostí bez připsané entropické garance.</p><span class="tag">STEJNÁ GARANCE + DIVERZITA</span></button>
+      <button type="button" class="mode-card unavailable" data-mode="external" data-active-label="AKTIVNÍ" data-unavailable-label="NEJDŘÍV PŘIDEJ ZDROJ" aria-pressed="false" aria-disabled="true"><h3>Vícezdrojový režim</h3><p>Navíc vrství až osm souborů či vzdálených .efb balíčků. Žádný z nich nenahrazuje systémový základ.</p><span class="tag">VYŽADUJE EXTERNÍ DATA</span></button>
+    </div>
+    <div id="hardwareBox" class="hardware-box">
+      <h3 style="margin-top:0">Přidat další externí zdroj</h3>
+      <p class="hint">Lze postupně navrstvit až osm souborů z lokálního hardwaru i .efb balíčků vytvořených vzdáleným sběračem. Duplicitní zdroj se odmítne a původní bajty se po jednosměrném zpracování nedrží jako výstupní proud.</p>
+      <div class="hardware-row">
+        <div class="field"><label for="externalFormat">Formát souboru</label><select id="externalFormat"><option value="auto">Automaticky rozpoznat</option><option value="binary">Surová binární data</option><option value="hex">Hexadecimální text</option><option value="base64">Base64 / Base64 URL</option><option value="decimal">Desítkové bajty</option><option value="bits">Textové bity</option><option value="bundle">EntropyForge Remote Bundle (.efb)</option></select></div>
+        <input id="hardwareFile" class="sr" type="file" accept=".efb,.bin,.txt,application/octet-stream"><button id="loadHardware" class="secondary">Přidat soubor</button><button id="removeHardware" class="secondary danger" disabled>Odebrat poslední</button><button id="removeAllHardware" class="secondary danger" disabled>Odebrat vše</button><span id="hardwareState" class="hardware-state">Externí zdroj není připojen.</span>
+      </div>
+      <p class="hint">Vzdálený balíček vytvoří samostatný nástroj <code>remote_entropy_collector.py</code> (ve Windows <code>run_remote_collector.bat</code>). Samotný HTML generátor tak zůstává offline.</p>
+    </div>
+    <details>
+      <summary>Pokročilé nastavení zdroje</summary>
+      <div class="grid" style="margin-top:12px">
+        <div class="field"><label for="engineMode">Režim</label><select id="engineMode"><option value="auto">Automaticky, doporučeno</option><option id="validatedModeOption" value="validated" disabled>Přísný Windows CNG profil</option><option value="system">Pouze systémový CSPRNG</option><option value="hybrid">Diverzifikovaný software</option><option id="externalModeOption" value="external" disabled>Vícezdrojový s externími daty</option></select></div>
+        <button id="selfTest" class="secondary">Spustit funkční diagnostiku</button>
+        <button id="exportReport" class="secondary">Uložit technický report</button>
+      </div>
+      <p class="hint">Automatický režim použije dostupné doplňkové zdroje. Přísný profil je záměrně oddělený: čte Windows CNG přes same-origin lokální bridge, nepřimíchává časování ani externí data a při chybě nepřejde na náhradní zdroj.</p>
+    </details>
+    <div id="testReport" class="report" style="margin-top:13px">Funkční diagnostika zatím nebyla spuštěna.</div>
+  </section>
+
+  <section id="info" class="card">
+    <h2>Co je uvnitř</h2>
+    <div class="info-grid">
+      <div class="info-block"><h3>Bezpečný základ</h3><p>Běžné režimy stojí na <code>crypto.getRandomValues()</code>; přísný Windows profil čte přímo <code>BCryptGenRandom</code> přes lokální bridge.</p></div>
+      <div class="info-block"><h3>Bez zkreslení</h3><p>Čísla v intervalu používají rejection sampling. Nevzniká drobná nerovnoměrnost způsobená prostým modulo.</p></div>
+      <div class="info-block"><h3>Soukromí kláves</h3><p>U kláves se zpracovává pouze časový odstup a příznak opakování. Znak, keyCode ani text se nesbírá.</p></div>
+      <div class="info-block"><h3>Standardní promíchání</h3><p>Doplňkový proud používá doménově oddělený HMAC‑SHA‑512 a je XORován s čerstvým systémovým proudem.</p></div>
+      <div class="info-block"><h3>Poctivé omezení</h3><p>Certifikace podkladového modulu není certifikací EntropyForge. Časování ani statistika souboru nedostávají automatický odhad entropie.</p></div>
+      <div class="info-block"><h3>Fail‑closed profil</h3><p>Přísný režim se bez lokálního bridge, Windows CNG a zapnuté FIPS zásady neaktivuje a nikdy tiše nepřejde na Web Crypto.</p></div>
+      <div class="info-block"><h3>Oddělená síťová vrstva</h3><p>HTML generátor nepovoluje vzdálená spojení. CSP připouští jen stejný origin lokálního bridge; samostatný sběrač vytváří importovaný .efb balíček.</p></div>
+    </div>
+  </section>
+
+  <div class="statusbar"><span id="status">Připraveno</span><span id="entropyStatus">Doplňkové časování: 0 událostí • aktivně použito jako bonusová diverzifikace</span><span id="health" class="ok">Web Crypto: v pořádku</span></div>
+</div>
+<script>
+'use strict';
+const EN_TEXT = new Map([
+  ["Jazyk","Language"],
+  ["Jazyk rozhraní","Interface language"],
+  ["Offline generátor s Web Crypto, bezpečným vícezdrojovým vrstvením a odděleným přísným profilem Windows CNG přes lokální bridge. Žádná telemetrie ani vzdálené spojení v generátoru.","Offline generator with Web Crypto, safe multi-source layering, and a separate strict Windows CNG profile through a local bridge. No telemetry or remote connections in the generator."],
+  ["bez modulo zkreslení","no modulo bias"],
+  ["offline generátor","offline generator"],
+  ["více externích zdrojů","multiple external sources"],
+  ["Bezpečnostní stav","Security status"],
+  ["Kryptograficky bezpečný • diverzifikovaný","Cryptographically secure • diversified"],
+  ["Kryptograficky bezpečný • přísný Windows profil","Cryptographically secure • strict Windows profile"],
+  ["Kryptograficky bezpečný • vícezdrojový","Cryptographically secure • multi-source"],
+  ["Kryptograficky bezpečný","Cryptographically secure"],
+  ["DIVERZIFIKOVANÝ","DIVERSIFIED"],
+  ["VRSTVY: 2/3","LAYERS: 2/3"],
+  ["Dvě ze tří vrstev diverzifikace. Čerstvý systémový CSPRNG zůstává garantovaným základem.","Two of three diversification layers. A fresh system CSPRNG remains the guaranteed foundation."],
+  ["Aktivní zdroj","Active source"],
+  ["Diverzifikovaný software","Diversified software"],
+  ["Nemusíš nic nastavovat.","No configuration is required."],
+  ["Automatický režim vždy zachová čerstvý systémový CSPRNG a bezpečně přimíchá dostupné doplňkové zdroje. Přísný Windows profil je oddělený, nepoužívá vlastní směšovač a není vydáván za certifikát celé aplikace.","Automatic mode always retains a fresh system CSPRNG and safely mixes in available supplementary sources. The strict Windows profile is separate, does not use the custom mixer, and is not presented as a certificate for the application."],
+  ["Čísla","Numbers"],
+  ["Losování","Choices"],
+  ["Hesla","Passwords"],
+  ["Zdroje a diagnostika","Sources and diagnostics"],
+  ["Jak to funguje","How it works"],
+  ["Nástroje","Tools"],
+  ["Náhodná čísla","Random numbers"],
+  ["Minimum včetně","Minimum, inclusive"],
+  ["Maximum včetně","Maximum, inclusive"],
+  ["Počet čísel","Number of values"],
+  ["Bez opakování","Without replacement"],
+  ["Generovat","Generate"],
+  ["Podporuje celá čísla až do 2000 číslic; celkový výstup je bezpečně omezen.","Supports integers up to 2000 digits; total output is safely limited."],
+  ["Kopírovat","Copy"],
+  ["Uložit TXT","Save TXT"],
+  ["Vymazat","Clear"],
+  ["Losování možností","Random choice"],
+  ["Jedna možnost na řádek","One option per line"],
+  ["Počet výběrů","Number of selections"],
+  ["Losovat","Draw"],
+  ["V režimu bez opakování se shodné řádky sloučí. S opakováním mohou duplicity sloužit jako váhy.","In without-replacement mode, identical lines are merged. With replacement, duplicates can act as weights."],
+  ["Silná hesla","Strong passwords"],
+  ["Délka hesla","Password length"],
+  ["Počet hesel","Number of passwords"],
+  ["malá písmena","lowercase letters"],
+  ["VELKÁ písmena","UPPERCASE letters"],
+  ["číslice","digits"],
+  ["symboly","symbols"],
+  ["Celé heslo se vybírá rovnoměrně. Nevyhovující kandidát se zahodí a vygeneruje znovu.","The complete password is sampled uniformly. A candidate that does not meet the selected constraints is discarded and generated again."],
+  ["Tokeny a identifikátory","Tokens and identifiers"],
+  ["Počet bajtů","Number of bytes"],
+  ["Platí pro Hex a Base64 URL.","Applies to Hex and Base64 URL."],
+  ["Počet výstupů","Number of outputs"],
+  ["Formát","Format"],
+  ["Zdroje a funkční diagnostika","Sources and functional diagnostics"],
+  ["Volba zdrojů náhodnosti","Randomness source selection"],
+  ["Přísný Windows CNG profil","Strict Windows CNG profile"],
+  ["Přímé BCryptGenRandom bez vlastního HMAC mixéru. Vyžaduje lokální bridge a zapnutou systémovou FIPS zásadu.","Direct BCryptGenRandom without the custom HMAC mixer. Requires the local bridge and an enabled system FIPS policy."],
+  ["PŘÍMÉ CNG • NE CERTIFIKÁT APLIKACE","DIRECT CNG • NOT AN APPLICATION CERTIFICATE"],
+  ["Systémový CSPRNG","System CSPRNG"],
+  ["Nejjednodušší auditovatelná varianta. Přímo používá kryptografický generátor prohlížeče.","The simplest auditable option. It directly uses the browser's cryptographic generator."],
+  ["KRYPTOGRAFICKY BEZPEČNÝ","CRYPTOGRAPHICALLY SECURE"],
+  ["Stejný systémový základ plus HMAC proud a časování událostí bez připsané entropické garance.","The same system foundation plus an HMAC stream and event timing without claiming a guaranteed amount of entropy."],
+  ["STEJNÁ GARANCE + DIVERZITA","SAME GUARANTEE + DIVERSITY"],
+  ["Vícezdrojový režim","Multi-source mode"],
+  ["Navíc vrství až osm souborů či vzdálených .efb balíčků. Žádný z nich nenahrazuje systémový základ.","Additionally layers up to eight files or remote .efb bundles. None of them replaces the system foundation."],
+  ["VYŽADUJE EXTERNÍ DATA","REQUIRES EXTERNAL DATA"],
+  ["Přidat další externí zdroj","Add another external source"],
+  ["Lze postupně navrstvit až osm souborů z lokálního hardwaru i .efb balíčků vytvořených vzdáleným sběračem. Duplicitní zdroj se odmítne a původní bajty se po jednosměrném zpracování nedrží jako výstupní proud.","Up to eight files from local hardware or .efb bundles created by the remote collector can be layered. Duplicate sources are rejected, and the original bytes are not retained as an output stream after one-way processing."],
+  ["Formát souboru","File format"],
+  ["Automaticky rozpoznat","Detect automatically"],
+  ["Surová binární data","Raw binary data"],
+  ["Hexadecimální text","Hexadecimal text"],
+  ["Desítkové bajty","Decimal bytes"],
+  ["Textové bity","Text bits"],
+  ["Přidat soubor","Add file"],
+  ["Odebrat poslední","Remove last"],
+  ["Odebrat vše","Remove all"],
+  ["Externí zdroj není připojen.","No external source is connected."],
+  ["Vzdálený balíček vytvoří samostatný nástroj","A remote bundle is created by the separate tool"],
+  ["(ve Windows","(on Windows"],
+  ["). Samotný HTML generátor tak zůstává offline.","). The HTML generator itself therefore remains offline."],
+  ["Pokročilé nastavení zdroje","Advanced source settings"],
+  ["Režim","Mode"],
+  ["Automaticky, doporučeno","Automatic, recommended"],
+  ["Pouze systémový CSPRNG","System CSPRNG only"],
+  ["Vícezdrojový s externími daty","Multi-source with external data"],
+  ["Spustit funkční diagnostiku","Run functional diagnostics"],
+  ["Uložit technický report","Save technical report"],
+  ["Automatický režim použije dostupné doplňkové zdroje. Přísný profil je záměrně oddělený: čte Windows CNG přes same-origin lokální bridge, nepřimíchává časování ani externí data a při chybě nepřejde na náhradní zdroj.","Automatic mode uses available supplementary sources. The strict profile is deliberately separate: it reads Windows CNG through the same-origin local bridge, does not mix timing or external data, and does not fall back when an error occurs."],
+  ["Funkční diagnostika zatím nebyla spuštěna.","Functional diagnostics have not been run yet."],
+  ["Co je uvnitř","What is inside"],
+  ["Bezpečný základ","Secure foundation"],
+  ["Běžné režimy stojí na","Standard modes use"],
+  ["; přísný Windows profil čte přímo","; the strict Windows profile directly reads"],
+  ["přes lokální bridge.","through the local bridge."],
+  ["Bez zkreslení","Unbiased mapping"],
+  ["Čísla v intervalu používají rejection sampling. Nevzniká drobná nerovnoměrnost způsobená prostým modulo.","Numbers in a range use rejection sampling, avoiding the slight non-uniformity caused by simple modulo reduction."],
+  ["Soukromí kláves","Keyboard privacy"],
+  ["U kláves se zpracovává pouze časový odstup a příznak opakování. Znak, keyCode ani text se nesbírá.","For keyboard events, only timing intervals and the repeat flag are processed. The character, keyCode, and text are not collected."],
+  ["Standardní promíchání","Standard mixing"],
+  ["Doplňkový proud používá doménově oddělený HMAC‑SHA‑512 a je XORován s čerstvým systémovým proudem.","The supplementary stream uses domain-separated HMAC-SHA-512 and is XORed with a fresh system stream."],
+  ["Poctivé omezení","Honest limitations"],
+  ["Certifikace podkladového modulu není certifikací EntropyForge. Časování ani statistika souboru nedostávají automatický odhad entropie.","Certification of the underlying module is not certification of EntropyForge. Timing and file statistics are not automatically assigned an entropy estimate."],
+  ["Fail‑closed profil","Fail-closed profile"],
+  ["Přísný režim se bez lokálního bridge, Windows CNG a zapnuté FIPS zásady neaktivuje a nikdy tiše nepřejde na Web Crypto.","Strict mode does not activate without the local bridge, Windows CNG, and an enabled FIPS policy, and it never silently falls back to Web Crypto."],
+  ["Oddělená síťová vrstva","Separate network layer"],
+  ["HTML generátor nepovoluje vzdálená spojení. CSP připouští jen stejný origin lokálního bridge; samostatný sběrač vytváří importovaný .efb balíček.","The HTML generator does not allow remote connections. CSP permits only the local bridge's same origin; a separate collector creates the imported .efb bundle."],
+  ["Doplňkové časování: 0 událostí • aktivně použito jako bonusová diverzifikace","Supplementary timing: 0 events • actively used as bonus diversification"],
+  ["Web Crypto: v pořádku","Web Crypto: healthy"],
+  ["Připraveno","Ready"],
+  ["Hotovo","Done"],
+  ["Chyba","Error"],
+  ["AKTIVNÍ","ACTIVE"],
+  ["SPUSŤ LOKÁLNÍ BRIDGE","START THE LOCAL BRIDGE"],
+  ["NEJDŘÍV PŘIDEJ ZDROJ","ADD A SOURCE FIRST"],
+  ["VRSTVY: ","LAYERS: "],
+  ["DIVERZITA: 1/3 • PŘÍMÝ PROFIL","DIVERSITY: 1/3 • DIRECT PROFILE"],
+  ["SYSTÉMOVÝ\nCSPRNG","SYSTEM\nCSPRNG"],
+  ["WINDOWS CNG\nPŘÍMÝ","WINDOWS CNG\nDIRECT"],
+  ["Tři konstrukční vrstvy; aktivní soubory/balíčky: ","Three construction layers; active files/bundles: "],
+  [", samostatné externí komponenty: ",", independent external components: "],
+  [". Systémový proud zůstává základem.",". The system stream remains the foundation."],
+  [" Součástí je vzdálený fyzický zdroj známý poskytovateli."," Includes a remote physical source whose bytes are known to the provider."],
+  [" Veřejné beacony zvyšují auditovatelnou diverzitu, ale nejsou tajnou entropií."," Public beacons increase auditable diversity but are not secret entropy."],
+  ["Jedna přímá vrstva: BCryptGenRandom se systémově preferovaným poskytovatelem. Vlastní HMAC, časování i externí data jsou z výstupní cesty vyřazeny.","One direct layer: BCryptGenRandom with the system-preferred provider. The custom HMAC, timing, and external data are excluded from the output path."],
+  [" Offline podklad odpovídá "," The offline evidence matches "],
+  [" Přesnou certifikační shodu prostředí musí potvrdit laboratoř."," Exact validation matching of the environment must be confirmed by a laboratory."],
+  ["Jedna vrstva: přímý kryptografický generátor prohlížeče. Nejmenší vlastní kód a nejsnazší audit.","One layer: the browser's direct cryptographic generator. The smallest amount of custom code and the easiest audit."],
+  ["Dvě vrstvy: čerstvý systémový proud a doménově oddělená HMAC diverzifikace s časováním. Formální garance zůstává stejná jako u systémového CSPRNG.","Two layers: a fresh system stream and domain-separated HMAC diversification with timing. The formal guarantee remains the same as for the system CSPRNG."],
+  ["Doplňkové časování: nepoužívá se (","Supplementary timing: not used ("],
+  [" zaznamenaných událostí)"," recorded events)"],
+  ["Doplňkové časování: ","Supplementary timing: "],
+  [" událostí • aktivně použito jako bonusová diverzifikace"," events • actively used as bonus diversification"],
+  ["Přísný Windows profil není připraven.","The strict Windows profile is not ready."],
+  ["Přísný profil není dostupný.","The strict profile is unavailable."],
+  ["Aplikace nepřešla na náhradní zdroj.","The application did not switch to a fallback source."],
+  ["Nejdřív přidej externí zdroj.","Add an external source first."],
+  ["Externí zdroj zatím není přidaný. Aktivní režim se nezměnil.","No external source has been added yet. The active mode was not changed."],
+  ["UUID v4 má vždy pevně 16 bajtů.","UUID v4 always has a fixed size of 16 bytes."],
+  ["Generuji čísla","Generating numbers"],
+  ["Losuji","Drawing"],
+  ["Generuji tokeny","Generating tokens"],
+  ["Generuji hesla","Generating passwords"],
+  ["Dekóduji a zpracovávám externí zdroj","Decoding and processing external source"],
+  ["Odebírám poslední externí zdroj","Removing the last external source"],
+  ["Odebírám všechny externí zdroje","Removing all external sources"],
+  ["Spouštím funkční diagnostiku","Running functional diagnostics"],
+  ["Kopíruji","Copying"],
+  ["Zkopírováno do schránky","Copied to clipboard"],
+  ["Výstup vymazán","Output cleared"],
+  ["Počet","Count"],
+  ["Délka","Length"],
+  [" musí být celé číslo."," must be an integer."],
+  [" může mít nejvýše "," may have at most "],
+  [" číslic."," digits."],
+  [" musí být mezi "," must be between "],
+  [" a "," and "],
+  ["Požadovaný výstup je příliš velký. Limit je přibližně ","The requested output is too large. The limit is approximately "],
+  ["Minimum nesmí být větší než maximum.","The minimum must not be greater than the maximum."],
+  ["Pro výběr bez opakování je interval příliš malý.","The interval is too small for sampling without replacement."],
+  ["Zadej alespoň jednu možnost.","Enter at least one option."],
+  ["Počet výběrů je větší než počet různých možností.","The number of selections exceeds the number of distinct options."],
+  ["Vyber alespoň jednu skupinu znaků.","Select at least one character group."],
+  ["Heslo je kratší než počet vybraných skupin.","The password is shorter than the number of selected groups."],
+  ["Neplatný počet bajtů.","Invalid byte count."],
+  ["Tento prohlížeč neposkytuje potřebné Web Crypto API.","This browser does not provide the required Web Crypto API."],
+  ["Web Crypto: selhání systémového zdroje","Web Crypto: system source failure"],
+  ["Systémový zdroj zopakoval celý 64bajtový kontrolní blok.","The system source repeated the entire 64-byte health-check block."],
+  ["Lokální bridge vrátil HTTP ","The local bridge returned HTTP "],
+  ["Lokální bridge vrátil neplatný stavový formát.","The local bridge returned an invalid status format."],
+  ["Lokální bridge vrátil neplatná Base64 data.","The local bridge returned invalid Base64 data."],
+  ["Délka nebo kanonický tvar odpovědi lokálního bridge nesouhlasí.","The length or canonical form of the local bridge response does not match."],
+  ["Přísný Windows profil není připraven; nebyl použit náhradní zdroj.","The strict Windows profile is not ready; no fallback source was used."],
+  ["Jeden požadavek přísného profilu může mít nejvýše ","A single strict-profile request may contain at most "],
+  ["Lokální bridge vrátil neplatnou odpověď (HTTP ","The local bridge returned an invalid response (HTTP "],
+  ["Lokální bridge selhal (HTTP ","The local bridge failed (HTTP "],
+  ["Lokální bridge vrátil neočekávaný formát odpovědi.","The local bridge returned an unexpected response format."],
+  ["Windows CNG profil: v pořádku","Windows CNG profile: healthy"],
+  ["Horní mez musí být kladná.","The upper bound must be positive."],
+  ["Neznámý formát externích dat.","Unknown external data format."],
+  ["binární / surová data","binary / raw data"],
+  ["Soubor není platný text UTF-8 pro zvolený formát.","The file is not valid UTF-8 text for the selected format."],
+  ["Externí soubor je prázdný.","The external file is empty."],
+  ["Bitový text musí obsahovat pouze 0 a 1 a celý počet bajtů.","Bit text must contain only 0 and 1 and a whole number of bytes."],
+  ["textové bity","text bits"],
+  ["Desítkové bajty musí být oddělené mezerou, čárkou nebo středníkem.","Decimal bytes must be separated by spaces, commas, or semicolons."],
+  ["Desítkové bajty musí být v rozsahu 0 až 255.","Decimal bytes must be in the range 0 to 255."],
+  ["desítkové bajty","decimal bytes"],
+  ["Hexadecimální text musí mít sudý počet platných hex znaků.","Hexadecimal text must have an even number of valid hex characters."],
+  ["hexadecimální text","hexadecimal text"],
+  ["Soubor není platný Base64 nebo Base64 URL text.","The file is not valid Base64 or Base64 URL text."],
+  ["Textový soubor neodpovídá žádnému podporovanému formátu. Vyber správný formát ručně nebo použij surový binární soubor.","The text file does not match any supported format. Select the correct format manually or use a raw binary file."],
+  ["Externí zdroj musí obsahovat alespoň 4096 skutečných bajtů náhodných dat.","The external source must contain at least 4096 actual bytes of random data."],
+  ["Dekódovaná externí data mohou mít nejvýše 32 MiB.","Decoded external data may be at most 32 MiB."],
+  ["Soubor je zjevně degenerovaný a neprošel základní kontrolou neporušenosti.","The file is clearly degenerate and failed the basic integrity check."],
+  ["pouze základní kontrola; původ ani entropie nejsou ověřeny","basic check only; origin and entropy are not verified"],
+  ["Tento externí zdroj už byl v aktuální relaci zpracovaný.","This external source has already been processed in the current session."],
+  ["Současně lze přidat nejvýše ","At most "],
+  [" externích zdrojů."," external sources can be added at once."],
+  ["Externí soubor může mít nejvýše 32 MiB.","The external file may be at most 32 MiB."],
+  ["Soubor není EntropyForge Remote Bundle.","The file is not an EntropyForge Remote Bundle."],
+  ["Aktivní soubory/balíčky: ","Active files/bundles: "],
+  [" • poslední: "," • last: "],
+  [" B soubor / "," B file / "],
+  [" B zdrojových dat"," B of source data"],
+  [" komponent"," components"],
+  ["externí komponenta","external component"],
+  ["externí komponenty","external components"],
+  ["externích komponent","external components"],
+  ["Funkční diagnostika: ","Functional diagnostics: "],
+  ["PROŠLA","PASSED"],
+  ["VAROVÁNÍ","WARNING"],
+  ["Vzorek: ","Sample: "],
+  [" bajtů"," bytes"],
+  ["Podíl jedniček: ","One-bit ratio: "],
+  ["Chí-kvadrát bajtů: ","Byte chi-square: "],
+  ["Duplicitní 64B bloky: ","Duplicate 64-byte blocks: "],
+  ["Rozsah: funkční smoke test; neověřuje nepředvídatelnost ani fyzickou entropii.","Scope: functional smoke test; does not verify unpredictability or physical entropy."],
+  [" – technický report"," – technical report"],
+  ["Čas: ","Time: "],
+  ["Požadovaný režim: ","Requested mode: "],
+  ["Aktivní režim: ","Active mode: "],
+  ["Lokální časovací události: ","Local timing events: "],
+  ["Externí soubory/balíčky: ","External files/bundles: "],
+  ["Externí komponenty celkem: ","Total external components: "],
+  ["Přísný Windows profil připraven: ","Strict Windows profile ready: "],
+  ["Windows FIPS zásada: ","Windows FIPS policy: "],
+  ["Stav certifikačních podkladů: ","Validation evidence status: "],
+  ["Podkladový certifikát: ","Underlying certificate: "],
+  ["Omezení tvrzení: ","Claim limitation: "],
+  ["Externí zdroj ","External source "],
+  ["  Zdrojová data: ","  Source data: "],
+  ["  Kanonický otisk SHA-256: ","  Canonical SHA-256 fingerprint: "],
+  ["  Formát: ","  Format: "],
+  ["  Komponenty: ","  Components: "],
+  ["  Vytvořeno UTC: ","  Created UTC: "],
+  ["  Deklarované komponenty: ","  Declared components: "],
+  ["  Jistota: ","  Assurance: "],
+  ["neuvedeno","not specified"],
+  ["neuvedeny","not specified"],
+  ["nezjištěno","not detected"],
+  ["nespárován","unmatched"],
+  ["dostupné","available"],
+  ["nedostupné","unavailable"],
+  ["Aktivní výstupní zdroj: BCryptGenRandom přes same-origin lokální bridge","Active output source: BCryptGenRandom through the same-origin local bridge"],
+  ["Aktivní výstupní základ: crypto.getRandomValues()","Active output foundation: crypto.getRandomValues()"],
+  ["Doplňkový směšovač: vyřazen z přísného profilu","Supplementary mixer: excluded from the strict profile"],
+  ["Doplňkový směšovač: HMAC-SHA-512, doménově oddělený","Supplementary mixer: domain-separated HMAC-SHA-512"],
+  ["Síťová komunikace generátoru: pouze stejný origin lokálního loopback bridge; vzdálená spojení blokována CSP","Generator network communication: local loopback bridge on the same origin only; remote connections are blocked by CSP"],
+  ["Volitelná síťová komunikace: pouze samostatný remote_entropy_collector.py","Optional network communication: separate remote_entropy_collector.py only"],
+  ["Poznámka: certifikace podkladového modulu není certifikací EntropyForge; diagnostika ani statistika souboru nejsou certifikací fyzické náhodnosti.","Note: certification of the underlying module is not certification of EntropyForge; diagnostics and file statistics are not certification of physical randomness."],
+  ["Kopírování se nezdařilo. Označ výstup ručně.","Copying failed. Select the output manually."],
+  ["JSON obsahuje neplatné číslo.","JSON contains an invalid number."],
+  ["JSON objekt má nepovolený typ.","The JSON object has a disallowed type."],
+  ["JSON obsahuje undefined.","JSON contains undefined."],
+  ["JSON obsahuje nepodporovaný typ.","JSON contains an unsupported type."],
+  [" musí být JSON objekt."," must be a JSON object."],
+  [" nemá platný ASCII text."," does not contain valid ASCII text."],
+  ["Číslo v metadatech není přenositelné bezpečné celé číslo.","A metadata number is not a portable safe integer."],
+  [" není kanonický Base64 text."," is not canonical Base64 text."],
+  [" není platný Base64 text."," is not valid Base64 text."],
+  [" není kanonicky zapsaný Base64 text."," is not encoded as canonical Base64 text."],
+  ["Metadata obsahují příliš mnoho položek.","Metadata contain too many items."],
+  ["Metadata jsou vnořena příliš hluboko.","Metadata are nested too deeply."],
+  ["Metadata nesmějí obsahovat desetinná čísla.","Metadata must not contain floating-point numbers."],
+  ["Číslo v metadatech přesahuje přenositelný bezpečný rozsah.","A metadata number exceeds the portable safe range."],
+  ["Textová hodnota v metadatech je příliš dlouhá.","A metadata string value is too long."],
+  ["Metadata obsahují neplatný Unicode znak.","Metadata contain an invalid Unicode character."],
+  ["Seznam v metadatech obsahuje příliš mnoho položek.","A metadata list contains too many items."],
+  ["Objekt v metadatech obsahuje příliš mnoho polí.","A metadata object contains too many fields."],
+  ["Metadata obsahují nepodporovaný JSON typ.","Metadata contain an unsupported JSON type."],
+  ["Klíč metadata musí mít 1 až 96 tisknutelných ASCII znaků.","A metadata key must contain 1 to 96 printable ASCII characters."],
+  [" má neplatná pole."," has invalid fields."],
+  [" musí být text délky "," must be text with a length of "],
+  [" až "," to "],
+  [" znaků."," characters."],
+  [" smí obsahovat pouze tisknutelné ASCII znaky."," may contain printable ASCII characters only."],
+  [" není platný kanonický Base64 text."," is not valid canonical Base64 text."],
+  ["Vzdálený balíček není platný UTF-8 text.","The remote bundle is not valid UTF-8 text."],
+  ["Vzdálený balíček není platný text UTF-8.","The remote bundle is not valid UTF-8 text."],
+  ["Vzdálený balíček není platný JSON.","The remote bundle is not valid JSON."],
+  ["Vzdálený balíček neobsahuje platný JSON.","The remote bundle does not contain valid JSON."],
+  ["Vnější obal balíčku","Bundle envelope"],
+  ["Vnější obal balíčku musí být JSON objekt.","The bundle envelope must be a JSON object."],
+  ["Vnější obal balíčku není v kanonickém tvaru nebo obsahuje duplicitní pole.","The bundle envelope is not in canonical form or contains duplicate fields."],
+  ["Vnější obal balíčku není v kanonickém JSON tvaru nebo obsahuje duplicitní pole.","The bundle envelope is not in canonical JSON form or contains duplicate fields."],
+  ["Nepodporovaná verze EntropyForge balíčku.","Unsupported EntropyForge bundle version."],
+  ["Nepodporovaná verze EntropyForge vzdáleného balíčku.","Unsupported EntropyForge remote bundle version."],
+  ["payload_sha256 nemá platný formát.","payload_sha256 has an invalid format."],
+  ["Dekódovaný obsah balíčku musí mít 1 B až 1 MiB.","The decoded bundle payload must be between 1 B and 1 MiB."],
+  ["Kontrolní součet vzdáleného balíčku nesouhlasí.","The remote bundle checksum does not match."],
+  ["Obsah vzdáleného balíčku není platný UTF-8 JSON.","The remote bundle payload is not valid UTF-8 JSON."],
+  ["Obsah balíčku","Bundle payload"],
+  ["Obsah balíčku má neplatná pole.","The bundle payload has invalid fields."],
+  ["Obsah balíčku není v kanonickém JSON tvaru nebo obsahuje duplicitní pole.","The bundle payload is not in canonical JSON form or contains duplicate fields."],
+  ["Nepodporovaná verze obsahu EntropyForge balíčku.","Unsupported EntropyForge bundle payload version."],
+  ["created_utc není platný UTC čas.","created_utc is not a valid UTC timestamp."],
+  ["Balíček musí obsahovat 1 až 8 zdrojů.","The bundle must contain 1 to 8 sources."],
+  [": neplatné nebo duplicitní id.",": invalid or duplicate id."],
+  [": nepodporovaný kind.",": unsupported kind."],
+  [": nepodporovaná visibility.",": unsupported visibility."],
+  [": veřejný beacon musí mít visibility=public.",": a public beacon must have visibility=public."],
+  [": vzdálený TRNG musí mít visibility=provider_known.",": a remote TRNG must have visibility=provider_known."],
+  [": data musí mít 32 B až 128 KiB.",": data must contain 32 B to 128 KiB."],
+  [": data jsou zjevně degenerovaná.",": data are clearly degenerate."],
+  [": kontrolní součet dat nesouhlasí.",": the data checksum does not match."],
+  [": stejná náhodná data už balíček obsahuje.",": the bundle already contains the same random data."],
+  [": validation musí mít 1 až 8 položek.",": validation must contain 1 to 8 items."],
+  [": metadata musí být JSON objekt.",": metadata must be a JSON object."],
+  ["obsahuje vzdálený fyzický zdroj doručený přes HTTPS; poskytovatel jeho bajty zná. Metadata původu po importu nejsou znovu kryptograficky ověřena","contains a remote physical source delivered over HTTPS; the provider knows its bytes. Origin metadata are not cryptographically reverified after import"],
+  ["obsahuje pouze veřejné beacony; přidává nezávislou auditovatelnou diverzifikaci, nikoli tajnou entropii","contains public beacons only; adds independent auditable diversification, not secret entropy"],
+  ["uživatelem dodaný zdroj; fyzický původ a min-entropie nejsou ověřeny","user-supplied source; physical origin and min-entropy are not verified"],
+  ["Přísný profil je dostupný pouze ve Windows.","The strict profile is available only on Windows."],
+  ["BCryptGetFipsAlgorithmMode není dostupné.","BCryptGetFipsAlgorithmMode is unavailable."],
+  ["Systémová zásada Windows „System cryptography: Use FIPS compliant algorithms“ není zapnutá.","The Windows policy “System cryptography: Use FIPS compliant algorithms” is not enabled."],
+  ["Verze Windows není v přiloženém offline manifestu spárována s dokončeným CMVP certifikátem; aktuální stav musí ověřit laboratoř.","The Windows version is not matched to a completed CMVP certificate in the bundled offline manifest; a laboratory must verify the current status."],
+  ["Windows CNG je připravené a verze systému odpovídá aktivnímu podkladovému certifikátu v manifestu.","Windows CNG is ready and the system version matches an active underlying certificate in the manifest."],
+  ["Windows CNG je připravené v systémovém FIPS režimu, ale přesná certifikační shoda prostředí není offline doložena.","Windows CNG is ready in system FIPS mode, but an exact validation match for the environment is not documented offline."],
+  ["Přísný Windows CNG profil není připraven k použití.","The strict Windows CNG profile is not ready for use."],
+  ["Certifikace se vztahuje pouze na podkladový kryptografický modul v podmínkách jeho Security Policy, nikoli na EntropyForge.","Certification applies only to the underlying cryptographic module under the conditions of its Security Policy, not to EntropyForge."],
+  ["Neplatná hlavička Host.","Invalid Host header."],
+  ["Požadavek nemá povolený same-origin původ.","The request does not have an allowed same-origin origin."],
+  ["Chybí platná relace lokálního bridge.","A valid local bridge session is missing."],
+  ["Nenalezeno.","Not found."],
+  ["Požadován je Content-Type application/json.","Content-Type application/json is required."],
+  ["Neplatná velikost požadavku.","Invalid request size."],
+  ["Neplatný JSON.","Invalid JSON."],
+  ["Pole bytes musí být celé číslo od 1 do ","The bytes field must be an integer from 1 to "],
+  ["BCryptGenRandom není dostupné.","BCryptGenRandom is unavailable."],
+  ["Windows CNG zopakovalo celý 64bajtový kontrolní blok.","Windows CNG repeated the entire 64-byte health-check block."],
+  ["Jazyk přepnut na češtinu.","Language switched to Czech."],
+  ["Jazyk přepnut na angličtinu.","Language switched to English."]
+]);
+let currentLanguage = (()=>{try{const value=localStorage.getItem("EntropyForge.language");return value==="en"?"en":"cs"}catch{return "cs"}})();
+const staticTextNodes=[];
+let diagnosticResult=null;
+let healthState={ok:true,message:"Web Crypto: v pořádku"};
+function t(cs,en){return currentLanguage==="en"?(en||translateLoose(cs)):cs}
+function translateLoose(value){
+  const input=String(value);
+  if(currentLanguage!=="en")return input;
+  if(EN_TEXT.has(input))return EN_TEXT.get(input);
+  let output=input;
+  const entries=[...EN_TEXT.entries()].sort((a,b)=>b[0].length-a[0].length);
+  for(const [source,target] of entries){if((source.length>=4||source===" a ")&&output.includes(source))output=output.split(source).join(target)}
+  return output;
+}
+function formatNumber(value){return Number(value).toLocaleString(currentLanguage==="en"?"en-US":"cs-CZ")}
+function captureStaticText(){
+  if(typeof document.createTreeWalker!=="function"||typeof NodeFilter==="undefined")return;
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  while(walker.nextNode()){
+    const node=walker.currentNode,parent=node.parentElement;
+    if(!parent||["SCRIPT","STYLE","TEXTAREA"].includes(parent.tagName))continue;
+    const source=node.nodeValue.trim();
+    if(EN_TEXT.has(source))staticTextNodes.push({node,source,prefix:node.nodeValue.match(/^\s*/)[0],suffix:node.nodeValue.match(/\s*$/)[0]});
+  }
+}
+function renderStaticText(){
+  for(const item of staticTextNodes){if(item.node.isConnected)item.node.nodeValue=item.prefix+(currentLanguage==="en"?EN_TEXT.get(item.source):item.source)+item.suffix}
+}
+/* CORE_START */
+const enc = new TextEncoder();
+const DOMAIN = enc.encode('EntropyForge-3.2|');
+const MIN_EXTERNAL_BYTES = 4096;
+const MAX_EXTERNAL_FILE_BYTES = 32 * 1024 * 1024;
+const MAX_EXTERNAL_SOURCES = 8;
+const MAX_BUNDLE_PAYLOAD_BYTES = 1024 * 1024;
+const MIN_BUNDLE_SOURCE_BYTES = 32;
+const MAX_BUNDLE_SOURCE_BYTES = 128 * 1024;
+const MAX_METADATA_DEPTH = 12;
+const MAX_METADATA_NODES = 4096;
+const MAX_METADATA_ITEMS = 256;
+const MAX_METADATA_STRING_CHARS = 262144;
+const MAX_SAFE_JSON_INTEGER = 9007199254740991;
+const BUNDLE_SCHEMA = 'entropyforge.remote-bundle.v1';
+const PAYLOAD_SCHEMA = 'entropyforge.remote-payload.v1';
+const MAX_OUTPUT_CHARACTERS = 8000000;
+const MAX_INTEGER_DIGITS = 2000;
+const MAX_BRIDGE_REQUEST_BYTES = 16 * 1024 * 1024;
+const DIVERSITY_LEVELS = Object.freeze({validated:1,system:1,hybrid:2,external:3});
+let pool = new Uint8Array(64);
+let externalPool = null;
+let externalSources = [];
+const seenExternalKeys = new Set();
+const seenExternalComponents = new Set();
+let eventCount = 0;
+let counter = 0n;
+let stateQueue = Promise.resolve();
+let lastEventNs = 0;
+let lastMotionMs = 0;
+let lastOsProbe = null;
+let reservoir = new Uint8Array();
+let reservoirPos = 0;
+let reservoirDirty = false;
+let bridgeStatus = null;
+
+function $(id){return document.getElementById(id)}
+function queueState(fn){const next=stateQueue.then(fn,fn);stateQueue=next.catch(()=>{});return next}
+function concat(...arrays){const size=arrays.reduce((s,a)=>s+a.length,0);const out=new Uint8Array(size);let p=0;for(const a of arrays){out.set(a,p);p+=a.length}return out}
+function u64(value){let v=BigInt.asUintN(64,BigInt(value));const out=new Uint8Array(8);for(let i=7;i>=0;i--){out[i]=Number(v&255n);v>>=8n}return out}
+async function digest(name,data){return new Uint8Array(await crypto.subtle.digest(name,data))}
+async function sha512(data){return digest('SHA-512',data)}
+async function sha256(data){return digest('SHA-256',data)}
+async function importHmacKey(keyBytes){return crypto.subtle.importKey('raw',keyBytes,{name:'HMAC',hash:'SHA-512'},false,['sign'])}
+async function hmacWithKey(key,data){return new Uint8Array(await crypto.subtle.sign('HMAC',key,data))}
+async function hmacSha512(keyBytes,data){return hmacWithKey(await importHmacKey(keyBytes),data)}
+function setCryptoHealth(ok,message){healthState={ok,message:String(message)};$('health').textContent=translateLoose(healthState.message);$('health').className=ok?'ok':'error'}
+function osBytes(n){
+  if(!Number.isSafeInteger(n)||n<0)throw new Error('Neplatný počet bajtů.');
+  try{const out=new Uint8Array(n);for(let i=0;i<n;i+=65536)crypto.getRandomValues(out.subarray(i,Math.min(i+65536,n)));return out}
+  catch(error){setCryptoHealth(false,'Web Crypto: selhání systémového zdroje');throw error}
+}
+function equalBytes(a,b){if(!a||!b||a.length!==b.length)return false;let d=0;for(let i=0;i<a.length;i++)d|=a[i]^b[i];return d===0}
+function bytesToHex(data){return Array.from(data,b=>b.toString(16).padStart(2,'0')).join('')}
+function assertCrypto(){if(!globalThis.crypto||!crypto.getRandomValues||!crypto.subtle){const error=new Error('Tento prohlížeč neposkytuje potřebné Web Crypto API.');setCryptoHealth(false,error.message);throw error}}
+
+function isLoopbackBridgePage(){
+  if(!globalThis.location||!['http:','https:'].includes(location.protocol))return false;
+  const host=String(location.hostname).toLowerCase();
+  return host==='127.0.0.1'||host==='localhost'||host==='::1'||host==='[::1]';
+}
+function bridgeReady(){return Boolean(bridgeStatus&&bridgeStatus.ready===true&&bridgeStatus.profile==='entropyforge.windows-cng.strict.v1')}
+async function detectValidatedBridge(){
+  bridgeStatus=null;
+  if(!isLoopbackBridgePage()||typeof fetch!=='function')return;
+  try{
+    const response=await fetch('/api/v1/status',{method:'GET',credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
+    if(!response.ok)throw new Error(`Lokální bridge vrátil HTTP ${response.status}.`);
+    const value=await response.json();
+    if(!value||typeof value!=='object'||Array.isArray(value)||typeof value.ready!=='boolean'||value.profile!=='entropyforge.windows-cng.strict.v1')throw new Error('Lokální bridge vrátil neplatný stavový formát.');
+    bridgeStatus=value;
+  }catch(error){
+    bridgeStatus={profile:'entropyforge.windows-cng.strict.v1',ready:false,summary:String(error&&error.message||error),issues:[String(error&&error.message||error)]};
+  }
+  $('validatedModeOption').disabled=!bridgeReady();
+}
+function decodeBridgeBase64(value,expectedBytes){
+  if(typeof value!=='string'||value.length>Math.ceil(expectedBytes/3)*4+4||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value))throw new Error('Lokální bridge vrátil neplatná Base64 data.');
+  let binary;try{binary=atob(value)}catch{throw new Error('Lokální bridge vrátil neplatná Base64 data.')}
+  if(binary.length!==expectedBytes||btoa(binary)!==value)throw new Error('Délka nebo kanonický tvar odpovědi lokálního bridge nesouhlasí.');
+  return Uint8Array.from(binary,character=>character.charCodeAt(0));
+}
+async function bridgeRandomBytes(n){
+  if(!bridgeReady())throw new Error('Přísný Windows profil není připraven; nebyl použit náhradní zdroj.');
+  if(!Number.isSafeInteger(n)||n<0||n>MAX_BRIDGE_REQUEST_BYTES)throw new Error(`Jeden požadavek přísného profilu může mít nejvýše ${MAX_BRIDGE_REQUEST_BYTES} bajtů.`);
+  if(n===0)return new Uint8Array();
+  try{
+    const response=await fetch('/api/v1/random',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({bytes:n})});
+    let value;try{value=await response.json()}catch{throw new Error(`Lokální bridge vrátil neplatnou odpověď (HTTP ${response.status}).`)}
+    if(!response.ok)throw new Error(String(value&&value.error||`Lokální bridge selhal (HTTP ${response.status}).`));
+    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!=='bytes,data_base64,profile'||value.bytes!==n||value.profile!=='entropyforge.windows-cng.strict.v1')throw new Error('Lokální bridge vrátil neočekávaný formát odpovědi.');
+    const output=decodeBridgeBase64(value.data_base64,n);
+    setCryptoHealth(true,'Windows CNG profil: v pořádku');
+    return output;
+  }catch(error){
+    const message=String(error&&error.message||error);
+    bridgeStatus={...(bridgeStatus||{}),profile:'entropyforge.windows-cng.strict.v1',ready:false,summary:message,issues:[message]};
+    $('validatedModeOption').disabled=true;
+    setCryptoHealth(false,`Windows CNG profil: ${message}`);
+    updateQuality();
+    throw error;
+  }
+}
+
+async function boot(){
+  assertCrypto();
+  const seed=osBytes(64);
+  lastOsProbe=seed.slice();
+  const meta=enc.encode([Date.now(),performance.now(),navigator.userAgent.length,screen.width,screen.height].join('|'));
+  pool=await hmacSha512(seed,concat(DOMAIN,enc.encode('boot|'),meta));
+  bindEntropyEvents();
+  updateTokenFormatState();
+  await detectValidatedBridge();
+  updateQuality();
+}
+
+function addTimingEvent(kind,repeat=false){
+  const now=performance.now();
+  const nowNs=Math.floor(now*1e6);
+  const delta=lastEventNs?Math.max(0,nowNs-lastEventNs):0;
+  lastEventNs=nowNs;
+  queueState(async()=>{
+    counter++;
+    const payload=enc.encode(`${kind}|${delta}|${repeat?1:0}|${eventCount}|${Date.now()%1000000}`);
+    pool=await hmacSha512(pool,concat(DOMAIN,enc.encode('event|'),u64(counter),payload));
+    eventCount++;
+    reservoirDirty=true;
+    updateQuality();
+  });
+}
+
+function bindEntropyEvents(){
+  addEventListener('pointermove',()=>{const now=performance.now();if(now-lastMotionMs>=25){lastMotionMs=now;addTimingEvent('pointer')}},{passive:true});
+  addEventListener('pointerdown',()=>addTimingEvent('click'),{passive:true});
+  addEventListener('wheel',()=>addTimingEvent('wheel'),{passive:true});
+  addEventListener('keydown',e=>addTimingEvent('key',e.repeat),{passive:true});
+  addEventListener('touchstart',()=>addTimingEvent('touch'),{passive:true});
+}
+
+function requestedMode(){return $('engineMode').value}
+function effectiveMode(){const r=requestedMode();if(r==='auto')return externalSources.length?'external':'hybrid';if(r==='external'&&!externalSources.length)return 'hybrid';return r}
+function modeLabel(mode){return mode==='validated'?t('Přísný Windows CNG profil','Strict Windows CNG profile'):mode==='system'?t('Systémový CSPRNG','System CSPRNG'):mode==='external'?t('Vícezdrojový režim','Multi-source mode'):t('Diverzifikovaný software','Diversified software')}
+
+async function osHealthProbe(){
+  const probe=osBytes(64);
+  if(lastOsProbe&&equalBytes(probe,lastOsProbe)){
+    const message='Systémový zdroj zopakoval celý 64bajtový kontrolní blok.';
+    setCryptoHealth(false,message);throw new Error(message);
+  }
+  lastOsProbe=probe;
+  setCryptoHealth(true,'Web Crypto: v pořádku');
+}
+
+async function expandedStream(seed,n,label){
+  const key=await importHmacKey(seed);
+  const out=new Uint8Array(n);let pos=0;let block=0n;
+  while(pos<n){const chunk=await hmacWithKey(key,concat(DOMAIN,enc.encode(label),u64(++block)));const take=Math.min(chunk.length,n-pos);out.set(chunk.subarray(0,take),pos);pos+=take}
+  return out;
+}
+
+async function randomBytesCore(n){
+  assertCrypto();if(n===0)return new Uint8Array();
+  const mode=effectiveMode();
+  if(mode==='validated')return bridgeRandomBytes(n);
+  await osHealthProbe();
+  const direct=osBytes(n);
+  if(mode==='system')return direct;
+  const freshSeed=osBytes(64);counter++;
+  const ext=mode==='external'&&externalPool?externalPool:new Uint8Array();
+  const meta=concat(u64(counter),u64(Date.now()),enc.encode(performance.now().toFixed(6)));
+  const seed=await hmacSha512(pool,concat(DOMAIN,enc.encode('derive|'),freshSeed,ext,meta));
+  const stream=await expandedStream(seed,n,'stream|');
+  const result=new Uint8Array(n);for(let i=0;i<n;i++)result[i]=direct[i]^stream[i];
+  const tag=await sha256(result);
+  pool=await hmacSha512(seed,concat(DOMAIN,enc.encode('update|'),pool,freshSeed,ext,tag,meta));
+  return result;
+}
+function randomBytes(n){return queueState(()=>randomBytesCore(n))}
+function clearReservoir(){reservoir=new Uint8Array();reservoirPos=0;reservoirDirty=false}
+async function streamBytesCore(n){
+  if(reservoirDirty&&!['system','validated'].includes(effectiveMode())){reservoir=new Uint8Array();reservoirPos=0;reservoirDirty=false}
+  if(n>65536)return randomBytesCore(n);
+  if(reservoir.length-reservoirPos<n){reservoir=await randomBytesCore(Math.max(65536,n));reservoirPos=0}
+  const out=reservoir.slice(reservoirPos,reservoirPos+n);reservoirPos+=n;return out;
+}
+function streamBytes(n){return queueState(()=>streamBytesCore(n))}
+
+function bitLength(n){return n===0n?0:n.toString(2).length}
+async function randBelow(upper){
+  if(typeof upper!=='bigint'||upper<=0n)throw new Error('Horní mez musí být kladná.');
+  if(upper===1n)return 0n;
+  const bits=bitLength(upper-1n),bytes=Math.ceil(bits/8),excess=bytes*8-bits,mask=excess?0xff>>>excess:0xff;
+  while(true){const raw=await streamBytes(bytes);raw[0]&=mask;let x=0n;for(const b of raw)x=(x<<8n)|BigInt(b);if(x<upper)return x}
+}
+async function randint(min,max){return min+await randBelow(max-min+1n)}
+async function choice(items){return items[Number(await randBelow(BigInt(items.length)))]}
+
+function parseBigIntField(id,name){const value=$(id).value.trim();if(!/^[+-]?\d+$/.test(value))throw new Error(`${name} musí být celé číslo.`);const significant=value.replace(/^[+-]?0*/,'')||'0';if(significant.length>MAX_INTEGER_DIGITS)throw new Error(`${name} může mít nejvýše ${MAX_INTEGER_DIGITS} číslic.`);return BigInt(value)}
+function parseIntField(id,name,min,max){const n=Number($(id).value);if(!Number.isSafeInteger(n)||n<min||n>max)throw new Error(`${name} musí být mezi ${min} a ${max}.`);return n}
+function ensureOutputLimit(estimatedCharacters){if(estimatedCharacters>MAX_OUTPUT_CHARACTERS)throw new Error(`Požadovaný výstup je příliš velký. Limit je přibližně ${formatNumber(MAX_OUTPUT_CHARACTERS)} znaků.`)}
+function setOutput(id,lines){$(id).textContent=Array.isArray(lines)?lines.join('\n'):String(lines)}
+async function runAction(label,fn){try{$('status').textContent=translateLoose(label)+'…';document.body.style.cursor='progress';await fn();$('status').textContent=t('Hotovo','Done')}catch(e){$('status').textContent=t('Chyba','Error');alert(translateLoose(e.message||String(e)))}finally{document.body.style.cursor=''}}
+
+$('genNumbers').addEventListener('click',()=>runAction('Generuji čísla',async()=>{
+  const min=parseBigIntField('nMin','Minimum'),max=parseBigIntField('nMax','Maximum'),count=parseIntField('nCount','Počet',1,100000),unique=$('nUnique').checked;
+  if(min>max)throw new Error('Minimum nesmí být větší než maximum.');const span=max-min+1n;if(unique&&BigInt(count)>span)throw new Error('Pro výběr bez opakování je interval příliš malý.');
+  ensureOutputLimit(count*(Math.max(min.toString().length,max.toString().length)+1));
+  const out=[];
+  if(unique){const swaps=new Map();for(let i=0n;i<BigInt(count);i++){const j=i+await randBelow(span-i);const picked=swaps.has(j)?swaps.get(j):j;swaps.set(j,swaps.has(i)?swaps.get(i):i);out.push(String(min+picked))}}
+  else{for(let i=0;i<count;i++)out.push(String(await randint(min,max)))}setOutput('outNumbers',out);
+}));
+
+$('genChoices').addEventListener('click',()=>runAction('Losuji',async()=>{
+  let items=$('choiceInput').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);const count=parseIntField('choiceCount','Počet',1,100000),unique=$('choiceUnique').checked;
+  if(!items.length)throw new Error('Zadej alespoň jednu možnost.');if(unique)items=[...new Set(items)];if(unique&&count>items.length)throw new Error('Počet výběrů je větší než počet různých možností.');
+  ensureOutputLimit(count*(Math.max(...items.map(x=>x.length))+1));
+  const out=[];if(unique){const copy=[...items];for(let i=0;i<count;i++){const j=i+Number(await randBelow(BigInt(copy.length-i)));[copy[i],copy[j]]=[copy[j],copy[i]];out.push(copy[i])}}else{for(let i=0;i<count;i++)out.push(await choice(items))}setOutput('outChoices',out);
+}));
+
+function updateTokenFormatState(){
+  const uuid=$('tokenFormat').value==='UUID v4';
+  $('byteCount').disabled=uuid;
+  $('tokenByteHint').textContent=uuid?t('UUID v4 má vždy pevně 16 bajtů.','UUID v4 always has a fixed size of 16 bytes.'):t('Platí pro Hex a Base64 URL.','Applies to Hex and Base64 URL.');
+}
+$('tokenFormat').addEventListener('change',updateTokenFormatState);
+$('genTokens').addEventListener('click',()=>runAction('Generuji tokeny',async()=>{
+  const count=parseIntField('tokenCount','Počet výstupů',1,10000),fmt=$('tokenFormat').value,out=[];
+  const n=fmt==='UUID v4'?16:parseIntField('byteCount','Počet bajtů',1,1048576);
+  ensureOutputLimit(fmt==='UUID v4'?count*37:fmt==='Base64 URL'?count*(Math.ceil(4*n/3)+1):count*(2*n+1));
+  for(let i=0;i<count;i++){if(fmt==='UUID v4'){const b=await randomBytes(16);b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const h=bytesToHex(b);out.push(`${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`)}else{const b=await randomBytes(n);if(fmt==='Base64 URL'){let s='';for(let p=0;p<b.length;p+=8192)s+=String.fromCharCode(...b.subarray(p,p+8192));out.push(btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''))}else out.push(bytesToHex(b))}}setOutput('outTokens',out);
+}));
+
+$('genPasswords').addEventListener('click',()=>runAction('Generuji hesla',async()=>{
+  const length=parseIntField('passLength','Délka',4,4096),count=parseIntField('passCount','Počet',1,5000),groups=[];
+  ensureOutputLimit(count*(length+1));
+  if($('pLower').checked)groups.push('abcdefghijklmnopqrstuvwxyz');if($('pUpper').checked)groups.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');if($('pDigits').checked)groups.push('0123456789');if($('pSymbols').checked)groups.push('!#$%&()*+,-./:;<=>?@[]^_{|}~');
+  if(!groups.length)throw new Error('Vyber alespoň jednu skupinu znaků.');if(length<groups.length)throw new Error('Heslo je kratší než počet vybraných skupin.');const alphabet=groups.join(''),out=[];
+  for(let p=0;p<count;p++){let password;do{const chars=[];for(let i=0;i<length;i++)chars.push(alphabet[Number(await randBelow(BigInt(alphabet.length)))]);password=chars.join('')}while(!groups.every(g=>[...password].some(ch=>g.includes(ch))));out.push(password)}setOutput('outPasswords',out);
+}));
+
+function isPrintableText(text){for(const character of text){if(/\s/u.test(character))continue;if(/[\p{C}]/u.test(character))return false}return true}
+function decodeExternalData(raw,formatHint='auto'){
+  const valid=new Set(['auto','binary','hex','base64','decimal','bits']);if(!valid.has(formatHint))throw new Error('Neznámý formát externích dat.');
+  if(formatHint==='binary')return {bytes:raw,format:'binární / surová data'};
+  let decodedText;
+  try{decodedText=new TextDecoder('utf-8',{fatal:true}).decode(raw).replace(/^\uFEFF/,'')}
+  catch(error){if(formatHint==='auto')return {bytes:raw,format:'binární / surová data'};throw new Error('Soubor není platný text UTF-8 pro zvolený formát.')}
+  if(formatHint==='auto'&&!isPrintableText(decodedText))return {bytes:raw,format:'binární / surová data'};
+  const text=decodedText.trim();if(!text)throw new Error('Externí soubor je prázdný.');const compact=text.replace(/\s+/g,'');
+  const decodeBits=()=>{if(!compact||compact.length%8!==0||!/^[01]+$/.test(compact))throw new Error('Bitový text musí obsahovat pouze 0 a 1 a celý počet bajtů.');const out=new Uint8Array(compact.length/8);for(let i=0;i<out.length;i++)out[i]=parseInt(compact.slice(i*8,i*8+8),2);return {bytes:out,format:'textové bity'}};
+  const decodeDecimal=()=>{if(!/^\s*\d{1,3}(?:[\s,;]+\d{1,3})*\s*$/.test(text))throw new Error('Desítkové bajty musí být oddělené mezerou, čárkou nebo středníkem.');const values=text.split(/[\s,;]+/).filter(Boolean).map(Number);if(!values.every(v=>Number.isInteger(v)&&v>=0&&v<=255))throw new Error('Desítkové bajty musí být v rozsahu 0 až 255.');return {bytes:Uint8Array.from(values),format:'desítkové bajty'}};
+  const decodeHex=()=>{if(!compact||compact.length%2!==0||!/^[0-9a-fA-F]+$/.test(compact))throw new Error('Hexadecimální text musí mít sudý počet platných hex znaků.');const out=new Uint8Array(compact.length/2);for(let i=0;i<out.length;i++)out[i]=parseInt(compact.slice(i*2,i*2+2),16);return {bytes:out,format:'hexadecimální text'}};
+  const decodeBase64=()=>{const normalized=compact.replace(/-/g,'+').replace(/_/g,'/');if(!normalized||normalized.length%4===1||!/^[A-Za-z0-9+/]*={0,2}$/.test(normalized))throw new Error('Soubor není platný Base64 nebo Base64 URL text.');try{const padded=normalized+'='.repeat((4-normalized.length%4)%4),binary=atob(padded),out=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)out[i]=binary.charCodeAt(i);return {bytes:out,format:'Base64 / Base64 URL text'}}catch{throw new Error('Soubor není platný Base64 nebo Base64 URL text.')}};
+  const decoders={bits:decodeBits,decimal:decodeDecimal,hex:decodeHex,base64:decodeBase64};if(formatHint!=='auto')return decoders[formatHint]();
+  if(/^[01\s]+$/.test(text)&&compact.length%8===0)return decodeBits();
+  if(/^\s*\d{1,3}(?:[\s,;]+\d{1,3})+\s*$/.test(text))return decodeDecimal();
+  if(compact.length%2===0&&/^[0-9a-fA-F]+$/.test(compact))return decodeHex();
+  if(/^[A-Za-z0-9+/_-]*={0,2}$/.test(compact))return decodeBase64();
+  throw new Error('Textový soubor neodpovídá žádnému podporovanému formátu. Vyber správný formát ručně nebo použij surový binární soubor.');
+}
+function basicExternalTest(sample){
+  if(sample.length<MIN_EXTERNAL_BYTES)throw new Error('Externí zdroj musí obsahovat alespoň 4096 skutečných bajtů náhodných dat.');
+  if(sample.length>MAX_EXTERNAL_FILE_BYTES)throw new Error('Dekódovaná externí data mohou mít nejvýše 32 MiB.');
+  const freq=new Uint32Array(256);let ones=0,longest=1,current=1;
+  for(let i=0;i<sample.length;i++){const b=sample[i];freq[b]++;ones+=b.toString(2).split('1').length-1;if(i&&sample[i]===sample[i-1]){current++;if(current>longest)longest=current}else current=1}
+  const ratio=ones/(sample.length*8),distinct=freq.reduce((n,x)=>n+(x>0?1:0),0),maxFreq=Math.max(...freq)/sample.length;
+  if(distinct<2||ratio<0.01||ratio>0.99||maxFreq>0.95||longest>=2048)throw new Error('Soubor je zjevně degenerovaný a neprošel základní kontrolou neporušenosti.');
+  return {ratio,distinct,maxFreq,longest,sampleSize:sample.length,assessment:'pouze základní kontrola; původ ani entropie nejsou ověřeny'};
+}
+
+function stableStringify(value){
+  if(value===null)return 'null';
+  if(typeof value==='string'||typeof value==='boolean')return JSON.stringify(value);
+  if(typeof value==='number'){if(!Number.isFinite(value))throw new Error('JSON obsahuje neplatné číslo.');return JSON.stringify(value)}
+  if(Array.isArray(value))return '['+value.map(stableStringify).join(',')+']';
+  if(typeof value==='object'){
+    const proto=Object.getPrototypeOf(value);if(proto!==Object.prototype&&proto!==null)throw new Error('JSON objekt má nepovolený typ.');
+    return '{'+Object.keys(value).sort().map(key=>{if(value[key]===undefined)throw new Error('JSON obsahuje undefined.');return JSON.stringify(key)+':'+stableStringify(value[key])}).join(',')+'}';
+  }
+  throw new Error('JSON obsahuje nepodporovaný typ.');
+}
+function exactKeys(value,expected,label){
+  if(!value||typeof value!=='object'||Array.isArray(value))throw new Error(`${label} musí být JSON objekt.`);
+  const actual=Object.keys(value).sort(),wanted=[...expected].sort();
+  if(actual.length!==wanted.length||actual.some((key,index)=>key!==wanted[index]))throw new Error(`${label} má neplatná pole.`);
+}
+function asciiText(value,label,min,max){
+  if(typeof value!=='string'||value.length<min||value.length>max||[...value].some(ch=>ch.codePointAt(0)<32||ch.codePointAt(0)>126))throw new Error(`${label} nemá platný ASCII text.`);
+  return value;
+}
+function validUtcTimestamp(value){
+  const match=typeof value==='string'&&/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,6})?Z$/.exec(value);
+  if(!match)return false;
+  const [year,month,day,hour,minute,second]=match.slice(1).map(Number);
+  if(year<1)return false;
+  const date=new Date(0);date.setUTCFullYear(year,month-1,day);date.setUTCHours(hour,minute,second,0);
+  return date.getUTCFullYear()===year&&date.getUTCMonth()===month-1&&date.getUTCDate()===day&&date.getUTCHours()===hour&&date.getUTCMinutes()===minute&&date.getUTCSeconds()===second;
+}
+function validateMetadata(value){
+  let nodes=0;
+  const visit=(item,depth)=>{
+    nodes++;if(nodes>MAX_METADATA_NODES)throw new Error('Metadata obsahují příliš mnoho položek.');
+    if(depth>MAX_METADATA_DEPTH)throw new Error('Metadata jsou vnořena příliš hluboko.');
+    if(item===null||typeof item==='boolean')return;
+    if(typeof item==='number'){if(!Number.isSafeInteger(item)||Math.abs(item)>MAX_SAFE_JSON_INTEGER)throw new Error('Číslo v metadatech není přenositelné bezpečné celé číslo.');return}
+    if(typeof item==='string'){const characters=[...item];if(characters.length>MAX_METADATA_STRING_CHARS)throw new Error('Textová hodnota v metadatech je příliš dlouhá.');if(characters.some(ch=>{const cp=ch.codePointAt(0);return cp>=0xD800&&cp<=0xDFFF}))throw new Error('Metadata obsahují neplatný Unicode znak.');return}
+    if(Array.isArray(item)){if(item.length>MAX_METADATA_ITEMS)throw new Error('Seznam v metadatech obsahuje příliš mnoho položek.');item.forEach(child=>visit(child,depth+1));return}
+    if(item&&typeof item==='object'){const keys=Object.keys(item);if(keys.length>MAX_METADATA_ITEMS)throw new Error('Objekt v metadatech obsahuje příliš mnoho polí.');for(const key of keys){if(key.length<1||key.length>96||[...key].some(ch=>{const cp=ch.codePointAt(0);return cp<32||cp>126}))throw new Error('Klíče metadat musí mít 1 až 96 tisknutelných ASCII znaků.');visit(item[key],depth+1)}return}
+    throw new Error('Metadata obsahují nepodporovaný JSON typ.');
+  };
+  visit(value,0);
+}
+function canonicalBase64(value,label){
+  if(typeof value!=='string'||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value))throw new Error(`${label} není kanonický Base64 text.`);
+  let binary;try{binary=atob(value)}catch{throw new Error(`${label} není platný Base64 text.`)}
+  const out=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)out[i]=binary.charCodeAt(i);
+  let encoded='';for(let i=0;i<out.length;i+=8192)encoded+=String.fromCharCode(...out.subarray(i,i+8192));
+  if(btoa(encoded)!==value)throw new Error(`${label} není kanonicky zapsaný Base64 text.`);
+  return out;
+}
+function containsBytes(haystack,needle){
+  outer:for(let i=0;i<=haystack.length-needle.length;i++){for(let j=0;j<needle.length;j++)if(haystack[i+j]!==needle[j])continue outer;return true}return false;
+}
+function looksLikeRemoteBundle(raw){let i=0;while(i<raw.length&&/\s/.test(String.fromCharCode(raw[i])))i++;return raw[i]===123&&containsBytes(raw,enc.encode(BUNDLE_SCHEMA))}
+async function parseRemoteBundle(raw){
+  let text;try{text=new TextDecoder('utf-8',{fatal:true}).decode(raw)}catch{throw new Error('Vzdálený balíček není platný text UTF-8.')}
+  let outer;try{outer=JSON.parse(text)}catch{throw new Error('Vzdálený balíček neobsahuje platný JSON.')}
+  exactKeys(outer,['schema','payload_base64','payload_sha256'],'Vnější obal balíčku');
+  if(stableStringify(outer)+'\n'!==text)throw new Error('Vnější obal balíčku není v kanonickém tvaru nebo obsahuje duplicitní pole.');
+  if(outer.schema!==BUNDLE_SCHEMA)throw new Error('Nepodporovaná verze EntropyForge balíčku.');
+  if(typeof outer.payload_sha256!=='string'||!/^[0-9a-f]{64}$/.test(outer.payload_sha256))throw new Error('payload_sha256 nemá platný formát.');
+  const payloadBytes=canonicalBase64(outer.payload_base64,'payload_base64');
+  if(!payloadBytes.length||payloadBytes.length>MAX_BUNDLE_PAYLOAD_BYTES)throw new Error('Dekódovaný obsah balíčku musí mít 1 B až 1 MiB.');
+  const fingerprint=bytesToHex(await sha256(payloadBytes));if(fingerprint!==outer.payload_sha256)throw new Error('Kontrolní součet vzdáleného balíčku nesouhlasí.');
+  let payloadText,payload;try{payloadText=new TextDecoder('utf-8',{fatal:true}).decode(payloadBytes);payload=JSON.parse(payloadText)}catch{throw new Error('Obsah vzdáleného balíčku není platný UTF-8 JSON.')}
+  exactKeys(payload,['schema','created_utc','collector','sources'],'Obsah balíčku');
+  if(stableStringify(payload)!==payloadText)throw new Error('Obsah balíčku není v kanonickém JSON tvaru nebo obsahuje duplicitní pole.');
+  if(payload.schema!==PAYLOAD_SCHEMA)throw new Error('Nepodporovaná verze obsahu EntropyForge balíčku.');
+  if(!validUtcTimestamp(payload.created_utc))throw new Error('created_utc není platný UTC čas.');
+  asciiText(payload.collector,'collector',1,96);
+  if(!Array.isArray(payload.sources)||payload.sources.length<1||payload.sources.length>8)throw new Error('Balíček musí obsahovat 1 až 8 zdrojů.');
+  const ids=new Set(),dataHashes=new Set(),summaries=[];let totalRandomBytes=0,publicCount=0,providerKnownCount=0;
+  for(let index=0;index<payload.sources.length;index++){
+    const source=payload.sources[index],number=index+1;
+    exactKeys(source,['id','label','kind','visibility','data_base64','data_sha256','validation','metadata'],`Zdroj ${number}`);
+    const id=asciiText(source.id,`Zdroj ${number}: id`,1,64);if(!/^[a-z0-9][a-z0-9._-]{0,63}$/.test(id)||ids.has(id))throw new Error(`Zdroj ${number}: neplatné nebo duplicitní id.`);ids.add(id);
+    const label=asciiText(source.label,`Zdroj ${number}: label`,1,80);
+    if(!['public_beacon','remote_trng'].includes(source.kind))throw new Error(`Zdroj ${number}: nepodporovaný kind.`);
+    if(!['public','provider_known'].includes(source.visibility))throw new Error(`Zdroj ${number}: nepodporovaná visibility.`);
+    if(source.kind==='public_beacon'&&source.visibility!=='public')throw new Error(`Zdroj ${number}: veřejný beacon musí mít visibility=public.`);
+    if(source.kind==='remote_trng'&&source.visibility!=='provider_known')throw new Error(`Zdroj ${number}: vzdálený TRNG musí mít visibility=provider_known.`);
+    const data=canonicalBase64(source.data_base64,`Zdroj ${number}: data_base64`);
+    if(data.length<MIN_BUNDLE_SOURCE_BYTES||data.length>MAX_BUNDLE_SOURCE_BYTES)throw new Error(`Zdroj ${number}: data musí mít 32 B až 128 KiB.`);
+    if(new Set(data).size<2)throw new Error(`Zdroj ${number}: data jsou zjevně degenerovaná.`);
+    if(typeof source.data_sha256!=='string'||!/^[0-9a-f]{64}$/.test(source.data_sha256)||bytesToHex(await sha256(data))!==source.data_sha256)throw new Error(`Zdroj ${number}: kontrolní součet dat nesouhlasí.`);
+    if(dataHashes.has(source.data_sha256))throw new Error(`Zdroj ${number}: stejná náhodná data už balíček obsahuje.`);dataHashes.add(source.data_sha256);
+    if(!Array.isArray(source.validation)||source.validation.length<1||source.validation.length>8)throw new Error(`Zdroj ${number}: validation musí mít 1 až 8 položek.`);
+    source.validation.forEach(item=>asciiText(item,`Zdroj ${number}: validation`,1,160));
+    if(!source.metadata||typeof source.metadata!=='object'||Array.isArray(source.metadata))throw new Error(`Zdroj ${number}: metadata musí být JSON objekt.`);
+    validateMetadata(source.metadata);
+    totalRandomBytes+=data.length;if(source.visibility==='public')publicCount++;else providerKnownCount++;
+    summaries.push({id,label,kind:source.kind,visibility:source.visibility,size:data.length,dataSha256:source.data_sha256,validation:[...source.validation]});
+  }
+  return {payload,payloadBytes,fingerprint,sourceCount:payload.sources.length,totalRandomBytes,publicCount,providerKnownCount,sources:summaries};
+}
+async function parseExternalSource(raw,fileName,formatHint){
+  const bundleMode=formatHint==='bundle'||(formatHint==='auto'&&(fileName.toLowerCase().endsWith('.efb')||looksLikeRemoteBundle(raw)));
+  if(bundleMode){
+    const bundle=await parseRemoteBundle(raw);
+    const digest512=await sha512(concat(DOMAIN,enc.encode('remote-bundle|'),u64(bundle.payloadBytes.length),bundle.payloadBytes));
+    const assurance=bundle.providerKnownCount?'obsahuje vzdálený fyzický zdroj doručený přes HTTPS; poskytovatel jeho bajty zná. Metadata původu po importu nejsou znovu kryptograficky ověřena':'obsahuje pouze veřejné beacony; přidává nezávislou auditovatelnou diverzifikaci, nikoli tajnou entropii';
+    return {digest:digest512,info:{name:fileName,rawSize:raw.length,decodedSize:bundle.totalRandomBytes,format:'EntropyForge Remote Bundle v1',hash:bundle.fingerprint,assurance,sourceType:'remote_bundle',sourceKey:`bundle:${bundle.fingerprint}`,componentCount:bundle.sourceCount,publicComponents:bundle.publicCount,providerKnownComponents:bundle.providerKnownCount,componentLabels:bundle.sources.map(source=>source.label),componentKeys:bundle.sources.map(source=>`data:${source.dataSha256}`),createdUtc:bundle.payload.created_utc}};
+  }
+  if(formatHint==='bundle')throw new Error('Soubor není EntropyForge Remote Bundle.');
+  const decoded=decodeExternalData(raw,formatHint),stats=basicExternalTest(decoded.bytes);
+  const digest512=await sha512(concat(DOMAIN,enc.encode('external-data|'),u64(decoded.bytes.length),decoded.bytes));
+  const fingerprint=bytesToHex(await sha256(decoded.bytes));
+  return {digest:digest512,info:{name:fileName,rawSize:raw.length,decodedSize:decoded.bytes.length,format:decoded.format,hash:fingerprint,stats,assurance:'uživatelem dodaný zdroj; fyzický původ a min-entropie nejsou ověřeny',sourceType:'external_file',sourceKey:`data:${fingerprint}`,componentCount:1,publicComponents:0,providerKnownComponents:0,componentKeys:[`data:${fingerprint}`]}};
+}
+async function rebuildExternalPool(){
+  if(!externalSources.length){externalPool=null;clearReservoir();return}
+  const components=[DOMAIN,enc.encode('external-set|'),u64(externalSources.length)];
+  externalSources.forEach((source,index)=>components.push(u64(index+1),source.digest));
+  const material=concat(...components);
+  externalPool=await hmacSha512(pool,concat(DOMAIN,enc.encode('external-pool|'),osBytes(64),material));
+  clearReservoir();
+}
+async function addExternalSource(source){
+  if(seenExternalKeys.has(source.info.sourceKey)||source.info.componentKeys.some(key=>seenExternalComponents.has(key)))throw new Error('Tento externí zdroj už byl v aktuální relaci zpracovaný.');
+  if(externalSources.length>=MAX_EXTERNAL_SOURCES)throw new Error(`Současně lze přidat nejvýše ${MAX_EXTERNAL_SOURCES} externích zdrojů.`);
+  externalSources.push(source);
+  try{await rebuildExternalPool()}catch(error){externalSources.pop();throw error}
+  seenExternalKeys.add(source.info.sourceKey);
+  source.info.componentKeys.forEach(key=>seenExternalComponents.add(key));
+}
+
+function renderHardwareState(){
+  const hasSources=externalSources.length>0;
+  if(hasSources){
+    const last=externalSources.at(-1).info;
+    $('hardwareState').textContent=`${t('Aktivní soubory/balíčky: ','Active files/bundles: ')}${externalSources.length}${t(' • poslední: ',' • last: ')}${last.name} • ${translateLoose(last.format)} • ${formatNumber(last.rawSize)} B ${t('soubor','file')} / ${formatNumber(last.decodedSize)} B ${t('zdrojových dat','of source data')} • ${last.componentCount} ${t('komponent','components')}`;
+  }else{
+    $('hardwareState').textContent=t('Externí zdroj není připojen.','No external source is connected.');
+  }
+  $('removeHardware').disabled=!hasSources;
+  $('removeAllHardware').disabled=!hasSources;
+  $('externalModeOption').disabled=!hasSources;
+}
+
+function requestMode(mode,{announce=true}={}){
+  if(mode==='validated'&&!bridgeReady()){
+    $('status').textContent=t('Přísný Windows profil není připraven.','The strict Windows profile is not ready.');
+    const issues=Array.isArray(bridgeStatus&&bridgeStatus.issues)?bridgeStatus.issues.map(translateLoose).join('\n\n'):t('Spusť run_validated_html.bat a zapni systémovou FIPS zásadu Windows.','Start run_validated_html.bat and enable the Windows system FIPS policy.');
+    if(announce)alert(`${translateLoose(bridgeStatus&&bridgeStatus.summary||'Přísný profil není dostupný.')}\n\n${issues}\n\n${t('Aplikace nepřešla na náhradní zdroj.','The application did not switch to a fallback source.')}`);
+    updateQuality();return false;
+  }
+  if(mode==='external'&&!externalSources.length){
+    $('status').textContent=t('Nejdřív přidej externí zdroj.','Add an external source first.');
+    $('hardwareBox').scrollIntoView({behavior:'smooth',block:'center'});$('loadHardware').focus();
+    if(announce)alert(t('Externí zdroj zatím není přidaný. Aktivní režim se nezměnil.','No external source has been added yet. The active mode was not changed.'));
+    updateQuality();return false;
+  }
+  $('engineMode').value=mode;queueState(async()=>clearReservoir());updateQuality();
+  if(announce)$('status').textContent=`${t('Aktivní režim: ','Active mode: ')}${modeLabel(effectiveMode())}`;
+  return true;
+}
+$('loadHardware').addEventListener('click',()=>$('hardwareFile').click());
+$('hardwareFile').addEventListener('change',()=>runAction('Dekóduji a zpracovávám externí zdroj',async()=>{
+  const file=$('hardwareFile').files[0];if(!file)return;
+  try{
+    if(file.size<=0)throw new Error('Externí soubor je prázdný.');
+    if(file.size>MAX_EXTERNAL_FILE_BYTES)throw new Error('Externí soubor může mít nejvýše 32 MiB.');
+    const raw=new Uint8Array(await file.arrayBuffer()),source=await parseExternalSource(raw,file.name,$('externalFormat').value);
+    await queueState(()=>addExternalSource(source));
+    renderHardwareState();updateQuality();
+  }finally{$('hardwareFile').value=''}
+}));
+$('removeHardware').addEventListener('click',()=>runAction('Odebírám poslední externí zdroj',async()=>{
+  let removed=null;await queueState(async()=>{removed=externalSources.pop()||null;await rebuildExternalPool()});
+  if(!removed)return;
+  if(!externalSources.length&&requestedMode()==='external')$('engineMode').value='auto';
+  renderHardwareState();
+  updateQuality();
+}));
+$('removeAllHardware').addEventListener('click',()=>runAction('Odebírám všechny externí zdroje',async()=>{
+  await queueState(async()=>{externalSources=[];await rebuildExternalPool()});
+  $('hardwareFile').value='';if(requestedMode()==='external')$('engineMode').value='auto';renderHardwareState();updateQuality();
+}));
+$('engineMode').addEventListener('change',()=>requestMode(requestedMode()));
+document.querySelectorAll('.mode-card').forEach(card=>card.addEventListener('click',()=>requestMode(card.dataset.mode)));
+
+function updateQuality(){
+  const mode=effectiveMode();
+  const external=mode==='external'&&externalSources.length;
+  const diversityLevel=DIVERSITY_LEVELS[mode];
+  const componentCount=externalSources.reduce((sum,source)=>sum+source.info.componentCount,0);
+  const publicComponents=externalSources.reduce((sum,source)=>sum+source.info.publicComponents,0);
+  const providerKnownComponents=externalSources.reduce((sum,source)=>sum+source.info.providerKnownComponents,0);
+  const componentWord=currentLanguage==='en'?(componentCount===1?'external component':'external components'):(componentCount===1?'externí komponenta':componentCount>=2&&componentCount<=4?'externí komponenty':'externích komponent');
+  $('activeEngine').textContent=external?`${modeLabel(mode)} (${componentCount} ${componentWord})`:modeLabel(mode);
+  document.querySelectorAll('.mode-card').forEach(card=>{const active=card.dataset.mode===mode,unavailable=card.dataset.mode==='external'&&!externalSources.length||card.dataset.mode==='validated'&&!bridgeReady();card.classList.toggle('active-mode',active);card.classList.toggle('unavailable',unavailable);card.setAttribute('aria-pressed',String(active));card.setAttribute('aria-disabled',String(unavailable))});
+  const meter=$('qualityMeter').children;
+  for(let i=0;i<meter.length;i++)meter[i].classList.toggle('on',i<diversityLevel);
+  $('qualityMeter').setAttribute('aria-label',currentLanguage==='en'?`${diversityLevel} of 3 diversification layers; the guaranteed foundation is the system CSPRNG`:`${diversityLevel} ze 3 vrstev diverzifikace; garantovaný základ je systémový CSPRNG`);
+  $('qualityLevelText').textContent=mode==='validated'?t('DIVERZITA: 1/3 • PŘÍMÝ PROFIL','DIVERSITY: 1/3 • DIRECT PROFILE'):(currentLanguage==='en'?`LAYERS: ${diversityLevel}/3`:`VRSTVY: ${diversityLevel}/3`);
+  if(external){
+    const provenance=providerKnownComponents?t(' Součástí je vzdálený fyzický zdroj známý poskytovateli.',' Includes a remote physical source whose bytes are known to the provider.'):publicComponents?t(' Veřejné beacony zvyšují auditovatelnou diverzitu, ale nejsou tajnou entropií.',' Public beacons increase auditable diversity but are not secret entropy.'):'';
+    const sourceWord=currentLanguage==='en'?(componentCount===1?'SOURCE':'SOURCES'):(componentCount===1?'ZDROJ':componentCount>=2&&componentCount<=4?'ZDROJE':'ZDROJŮ');
+    $('qualityName').textContent=t('Kryptograficky bezpečný • vícezdrojový','Cryptographically secure • multi-source');
+    $('qualityBadge').textContent=`${componentCount} ${t('EXTERNÍ','EXTERNAL')}\n${sourceWord}`;
+    $('qualityDesc').textContent=currentLanguage==='en'?`Three construction layers; active files/bundles: ${externalSources.length}, independent external components: ${componentCount}. The system stream remains the foundation.${provenance}`:`Tři konstrukční vrstvy; aktivní soubory/balíčky: ${externalSources.length}, samostatné externí komponenty: ${componentCount}. Systémový proud zůstává základem.${provenance}`;
+  }else if(mode==='validated'){
+    const evidence=bridgeStatus&&bridgeStatus.evidence_state==='matched-active'?(currentLanguage==='en'?` The offline evidence matches ${bridgeStatus.certificate}.`:` Offline podklad odpovídá ${bridgeStatus.certificate}.`):t(' Přesnou certifikační shodu prostředí musí potvrdit laboratoř.',' Exact validation matching of the environment must be confirmed by a laboratory.');
+    $('qualityName').textContent=t('Kryptograficky bezpečný • přísný Windows profil','Cryptographically secure • strict Windows profile');
+    $('qualityBadge').textContent=t('WINDOWS CNG\nPŘÍMÝ','WINDOWS CNG\nDIRECT');
+    $('qualityDesc').textContent=t('Jedna přímá vrstva: BCryptGenRandom se systémově preferovaným poskytovatelem. Vlastní HMAC, časování i externí data jsou z výstupní cesty vyřazeny.','One direct layer: BCryptGenRandom with the system-preferred provider. The custom HMAC, timing, and external data are excluded from the output path.')+evidence;
+  }else if(mode==='system'){
+    $('qualityName').textContent=t('Kryptograficky bezpečný','Cryptographically secure');
+    $('qualityBadge').textContent=t('SYSTÉMOVÝ\nCSPRNG','SYSTEM\nCSPRNG');
+    $('qualityDesc').textContent=t('Jedna vrstva: přímý kryptografický generátor prohlížeče. Nejmenší vlastní kód a nejsnazší audit.','One layer: the browser’s direct cryptographic generator. The smallest amount of custom code and the easiest audit.');
+  }else{
+    $('qualityName').textContent=t('Kryptograficky bezpečný • diverzifikovaný','Cryptographically secure • diversified');
+    $('qualityBadge').textContent=t('DIVERZIFIKOVANÝ','DIVERSIFIED');
+    $('qualityDesc').textContent=t('Dvě vrstvy: čerstvý systémový proud a doménově oddělená HMAC diverzifikace s časováním. Formální garance zůstává stejná jako u systémového CSPRNG.','Two layers: a fresh system stream and domain-separated HMAC diversification with timing. The formal guarantee remains the same as for the system CSPRNG.');
+  }
+  $('entropyStatus').textContent=['system','validated'].includes(mode)?(currentLanguage==='en'?`Supplementary timing: not used (${eventCount} recorded events)`:`Doplňkové časování: nepoužívá se (${eventCount} zaznamenaných událostí)`):(currentLanguage==='en'?`Supplementary timing: ${eventCount} events • actively used as bonus diversification`:`Doplňkové časování: ${eventCount} událostí • aktivně použito jako bonusová diverzifikace`);
+}
+
+function renderDiagnostic(){
+  if(!diagnosticResult){$('testReport').textContent=t('Funkční diagnostika zatím nebyla spuštěna.','Functional diagnostics have not been run yet.');return}
+  const {ok,mode,sampleLength,ratio,chi,duplicated}=diagnosticResult;
+  $('testReport').textContent=[
+    `${t('Funkční diagnostika: ','Functional diagnostics: ')}${ok?t('PROŠLA','PASSED'):t('VAROVÁNÍ','WARNING')}`,
+    `${t('Režim: ','Mode: ')}${modeLabel(mode)}`,
+    `${t('Vzorek: ','Sample: ')}${formatNumber(sampleLength)} ${t('bajtů','bytes')}`,
+    `${t('Podíl jedniček: ','One-bit ratio: ')}${(ratio*100).toFixed(3)} %`,
+    `${t('Chí-kvadrát bajtů: ','Byte chi-square: ')}${chi.toFixed(2)}`,
+    `${t('Duplicitní 64B bloky: ','Duplicate 64-byte blocks: ')}${duplicated}`,
+    t('Rozsah: funkční smoke test; neověřuje nepředvídatelnost ani fyzickou entropii.','Scope: functional smoke test; does not verify unpredictability or physical entropy.')
+  ].join('\n');
+}
+$('selfTest').addEventListener('click',()=>runAction('Spouštím funkční diagnostiku',async()=>{
+  const sample=await randomBytes(65536),freq=new Uint32Array(256);let ones=0;const blocks=new Set();for(let i=0;i<sample.length;i++){freq[sample[i]]++;ones+=sample[i].toString(2).split('1').length-1;if(i%64===0)blocks.add(bytesToHex(sample.subarray(i,i+64)))}
+  const ratio=ones/(sample.length*8),expected=sample.length/256;let chi=0;for(const f of freq)chi+=(f-expected)**2/expected;const duplicated=1024-blocks.size;
+  const ok=ratio>0.48&&ratio<0.52&&chi>100&&chi<450&&duplicated===0;
+  diagnosticResult={ok,mode:effectiveMode(),sampleLength:sample.length,ratio,chi,duplicated};renderDiagnostic();
+}));
+
+function technicalReport(){
+  const line=(cs,en)=>t(cs,en);
+  return [
+    `EntropyForge 3.3 – ${line('technický report','technical report')}`,
+    `${line('Čas: ','Time: ')}${new Date().toISOString()}`,
+    `${line('Požadovaný režim: ','Requested mode: ')}${requestedMode()}`,
+    `${line('Aktivní režim: ','Active mode: ')}${effectiveMode()}`,
+    `${line('Lokální časovací události: ','Local timing events: ')}${eventCount}`,
+    `${line('Externí soubory/balíčky: ','External files/bundles: ')}${externalSources.length}`,
+    `${line('Externí komponenty celkem: ','Total external components: ')}${externalSources.reduce((sum,source)=>sum+source.info.componentCount,0)}`,
+    `${line('Přísný Windows profil připraven: ','Strict Windows profile ready: ')}${bridgeReady()?line('ano','yes'):line('ne','no')}`,
+    `${line('Windows FIPS zásada: ','Windows FIPS policy: ')}${bridgeStatus?bridgeStatus.fips_policy_enabled:line('nezjištěno','not detected')}`,
+    `${line('Stav certifikačních podkladů: ','Validation evidence status: ')}${bridgeStatus&&bridgeStatus.evidence_state||line('bez lokálního bridge','no local bridge')}`,
+    `${line('Podkladový certifikát: ','Underlying certificate: ')}${bridgeStatus&&bridgeStatus.certificate||line('nespárován','unmatched')}`,
+    `${line('Omezení tvrzení: ','Claim limitation: ')}${translateLoose(bridgeStatus&&bridgeStatus.claim_limit||'Certifikace podkladového modulu není certifikací EntropyForge.')}`,
+    ...externalSources.flatMap((source,index)=>[
+      `${line('Externí zdroj ','External source ')}${index+1}: ${source.info.name} (${source.info.rawSize} B)`,
+      `  ${line('Zdrojová data: ','Source data: ')}${source.info.decodedSize} B`,
+      `  ${line('Kanonický otisk SHA-256: ','Canonical SHA-256 fingerprint: ')}${source.info.hash}`,
+      `  ${line('Formát: ','Format: ')}${translateLoose(source.info.format)}`,
+      `  ${line('Komponenty: ','Components: ')}${source.info.componentCount}`,
+      `  ${line('Vytvořeno UTC: ','Created UTC: ')}${source.info.createdUtc||line('neuvedeno','not specified')}`,
+      `  ${line('Deklarované komponenty: ','Declared components: ')}${source.info.componentLabels?.join(', ')||line('neuvedeny','not specified')}`,
+      `  ${line('Jistota: ','Assurance: ')}${translateLoose(source.info.assurance)}`
+    ]),
+    `Web Crypto: ${globalThis.crypto&&crypto.getRandomValues&&crypto.subtle?line('dostupné','available'):line('nedostupné','unavailable')}`,
+    effectiveMode()==='validated'?line('Aktivní výstupní zdroj: BCryptGenRandom přes same-origin lokální bridge','Active output source: BCryptGenRandom through the same-origin local bridge'):line('Aktivní výstupní základ: crypto.getRandomValues()','Active output foundation: crypto.getRandomValues()'),
+    effectiveMode()==='validated'?line('Doplňkový směšovač: vyřazen z přísného profilu','Supplementary mixer: excluded from the strict profile'):line('Doplňkový směšovač: HMAC-SHA-512, doménově oddělený','Supplementary mixer: domain-separated HMAC-SHA-512'),
+    line('Síťová komunikace generátoru: pouze stejný origin lokálního loopback bridge; vzdálená spojení blokována CSP','Generator network communication: local loopback bridge on the same origin only; remote connections are blocked by CSP'),
+    line('Volitelná síťová komunikace: pouze samostatný remote_entropy_collector.py','Optional network communication: separate remote_entropy_collector.py only'),
+    line('Poznámka: certifikace podkladového modulu není certifikací EntropyForge; diagnostika ani statistika souboru nejsou certifikací fyzické náhodnosti.','Note: certification of the underlying module is not certification of EntropyForge; diagnostics and file statistics are not certification of physical randomness.')
+  ].filter(Boolean).join('\n');
+}
+$('exportReport').addEventListener('click',()=>saveText(technicalReport(),'EntropyForge_report.txt'));
+
+async function copyText(text){if(navigator.clipboard&&isSecureContext){try{await navigator.clipboard.writeText(text);return}catch{}}const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw new Error('Kopírování se nezdařilo. Označ výstup ručně.')}
+function saveText(text,name){const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.copy)runAction('Kopíruji',async()=>{await copyText($(b.dataset.copy).textContent);$('status').textContent=t('Zkopírováno do schránky','Copied to clipboard')});if(b.dataset.save)saveText($(b.dataset.save).textContent,'EntropyForge_output.txt');if(b.dataset.clear){$(b.dataset.clear).textContent='';$('status').textContent=t('Výstup vymazán','Output cleared')}});
+
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===tab));document.querySelectorAll('.card').forEach(x=>x.classList.toggle('active',x.id===tab.dataset.tab))}));
+
+function applyLanguage(previousLanguage=currentLanguage,{announce=false,persist=false}={}){
+  if(document.documentElement)document.documentElement.lang=currentLanguage;
+  $('languageSelect').value=currentLanguage;
+  renderStaticText();
+  $('languageSelect').setAttribute('aria-label',t('Jazyk rozhraní','Interface language'));
+  $('toolTabs').setAttribute('aria-label',t('Nástroje','Tools'));
+  $('modeCards').setAttribute('aria-label',t('Volba zdrojů náhodnosti','Randomness source selection'));
+  $('qualityMeter').setAttribute('title',t('Čárky ukazují vrstvy diverzifikace, nikoli počet garantovaných bitů entropie.','Bars show diversification layers, not a number of guaranteed entropy bits.'));
+  document.querySelectorAll('.mode-card').forEach(card=>{
+    card.dataset.activeLabel=t('AKTIVNÍ','ACTIVE');
+    if(card.dataset.mode==='validated')card.dataset.unavailableLabel=t('SPUSŤ LOKÁLNÍ BRIDGE','START THE LOCAL BRIDGE');
+    if(card.dataset.mode==='external')card.dataset.unavailableLabel=t('NEJDŘÍV PŘIDEJ ZDROJ','ADD A SOURCE FIRST');
+  });
+  const oldDefault=previousLanguage==='en'?'Rock\nPaper\nScissors':'Kámen\nNůžky\nPapír';
+  if($('choiceInput').value===oldDefault)$('choiceInput').value=currentLanguage==='en'?'Rock\nPaper\nScissors':'Kámen\nNůžky\nPapír';
+  updateTokenFormatState();
+  renderHardwareState();
+  renderDiagnostic();
+  updateQuality();
+  setCryptoHealth(healthState.ok,healthState.message);
+  if(persist){try{localStorage.setItem('EntropyForge.language',currentLanguage)}catch{}}
+  if(announce)$('status').textContent=currentLanguage==='en'?'Language switched to English.':'Jazyk přepnut na češtinu.';
+}
+$('languageSelect').addEventListener('change',()=>{
+  const previous=currentLanguage;
+  currentLanguage=$('languageSelect').value==='en'?'en':'cs';
+  applyLanguage(previous,{announce:true,persist:true});
+});
+
+globalThis.__EntropyForgeCore=Object.freeze({decodeExternalData,basicExternalTest,parseRemoteBundle,parseExternalSource,stableStringify,externalSourceCount:()=>externalSources.length,randBelow,randomBytes,bridgeRandomBytes,bridgeReady,bridgeStatus:()=>bridgeStatus,bytesToHex,sha256,sha512,hmacSha512,expandedStream,MIN_EXTERNAL_BYTES,MAX_EXTERNAL_FILE_BYTES,MAX_EXTERNAL_SOURCES,MAX_OUTPUT_CHARACTERS,MAX_INTEGER_DIGITS,DIVERSITY_LEVELS});
+/* CORE_END */
+captureStaticText();
+applyLanguage('cs');
+const bootControlIds=['genNumbers','genChoices','genPasswords','genTokens','loadHardware','selfTest'];
+for(const id of bootControlIds)$(id).disabled=true;
+boot().then(()=>{for(const id of bootControlIds)$(id).disabled=false;$('status').textContent=t('Připraveno','Ready')}).catch(e=>{setCryptoHealth(false,e.message);alert(translateLoose(e.message))});
+</script>
+</body>
+</html>

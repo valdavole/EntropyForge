@@ -1,0 +1,317 @@
+ENTROPYFORGE 3.3 – BEZPEČNOSTNÍ MODEL
+=====================================
+
+1. CÍL
+------
+
+EntropyForge generuje kryptograficky bezpečné náhodné bajty pro lokální
+čísla, losování, hesla, tokeny a UUID. Návrh záměrně nestaví bezpečnost na
+odhadu entropie časování ani na domácím pseudonáhodném algoritmu.
+
+Bezpečnostní základ poskytuje operační systém:
+
+- Python volá os.urandom().
+- HTML volá Web Crypto crypto.getRandomValues().
+- Přísný Windows profil volá přímo BCryptGenRandom() s příznakem
+  BCRYPT_USE_SYSTEM_PREFERRED_RNG.
+
+Selhání nebo kompromitace samotného systémového CSPRNG je mimo schopnost
+aplikace spolehlivě diagnostikovat či napravit. Průběžná kontrola umí
+zachytit pouze hrubou poruchu v podobě opakovaného celého 64bajtového
+kontrolního bloku.
+
+Python i samostatně otevřený HTML generátor jsou offline. HTML spuštěné
+přes validated_bridge.py smí přes Content Security Policy komunikovat
+pouze se stejným loopback originem. Bridge neposkytuje CORS a požaduje
+HttpOnly SameSite relaci, správný Host a u výstupního POST také shodný
+Origin. Volitelný
+remote_entropy_collector.py je samostatný proces, jehož výstupem je
+striktně strukturovaný soubor .efb. Síťový výpadek proto nikdy neblokuje
+ani neoslabuje běžné generování.
+
+
+2. REŽIM SYSTÉMOVÉHO CSPRNG
+---------------------------
+
+Pro požadavek o délce n je výstup:
+
+    R = OS_CSPRNG(n)
+
+Jde o nejmenší a nejsnáze auditovatelnou cestu. Neprovádí se vlastní
+post-processing.
+
+
+2A. PŘÍSNÝ WINDOWS CNG PROFIL
+-----------------------------
+
+Výstup přísného profilu je:
+
+    R = BCryptGenRandom(NULL, n, BCRYPT_USE_SYSTEM_PREFERRED_RNG)
+
+Před aktivací musí BCryptGetFipsAlgorithmMode() potvrdit zapnutou
+systémovou FIPS zásadu. Každý požadavek navíc provede 64bajtovou
+kontrolu opakování. Selhání API, vypnutí zásady nebo opakování
+kontrolního bloku přepne profil do chybového stavu. Nesmí dojít k
+tichému návratu na os.urandom(), Web Crypto, HMAC proud ani externí data.
+
+V této výstupní cestě se nepoužívá vlastní směšovač, časování událostí
+ani .efb. Jde o integraci podkladového kryptografického modulu Windows,
+nikoli o tvrzení, že EntropyForge je validovaný modul.
+
+validated_backend.py obsahuje úzký offline manifest veřejných podkladů.
+Shoda verze systému s manifestem je pouze předběžná kontrola. Neověřuje
+konkrétní hardware, vydání systému, integritu všech binárních souborů,
+pravidla Security Policy ani aktuální stav certifikátu. Tyto podmínky
+musí pro formální použití potvrdit nezávislá laboratoř.
+
+HTML používá stejný backend pouze při spuštění přes
+run_validated_html.bat. Samostatný EntropyForge.html tento režim
+nenabízí a nadále používá Web Crypto.
+
+
+3. DIVERZIFIKOVANÉ REŽIMY
+-------------------------
+
+Pro každý přímý požadavek vznikne:
+
+    D = OS_CSPRNG(n)
+    F = OS_CSPRNG(64)
+    K = HMAC-SHA-512(pool, domain || "derive|" || F || E || metadata)
+    S = HMAC_expand(K, n, domain || "stream|")
+    R = D XOR S
+
+E je prázdné bez aktivních externích zdrojů. Ve vícezdrojovém režimu je
+to 512bitový zpracovaný stav množiny až osmi nezávisle označených
+souborů nebo balíčků.
+
+D je čerstvý pro každý přímý výstup a nikdy jej nenahrazuje časování ani
+externí soubor. XOR s libovolným nezávislým doplňkovým proudem zachovává
+bezpečnostní vlastnosti rovnoměrného nepředvídatelného D. Tento argument
+platí za předpokladu správného systémového CSPRNG a neškodné implementace
+HMAC/XOR.
+
+Po výstupu se pool jednosměrně aktualizuje HMAC-SHA-512 s čerstvým F,
+předchozím stavem, externím stavem, metadaty a SHA-256 tagem výsledku.
+Malé požadavky se obsluhují z 64KiB kryptografického rezervoáru. Změna
+režimu či externího zdroje rezervoár zahodí; nová časovací událost jej
+v diverzifikovaném režimu označí k obnovení.
+
+Python chrání stav reentrantním zámkem. HTML serializuje všechny změny
+stavu a odběry přes jednu asynchronní frontu.
+
+Každý externí zdroj se nejprve doménově odděleně zahashuje SHA-512.
+Při přidání či odebrání zdroje se E znovu vytvoří:
+
+    M = domain || "external-set|" || count || index_1 || digest_1 || ...
+    E = HMAC-SHA-512(pool,
+        domain || "external-pool|" || OS_CSPRNG(64) || M)
+
+Shodný kanonický otisk nelze v jedné relaci zpracovat dvakrát ani po
+odebrání zdroje. Zdrojové bajty se po vytvoření otisku nepoužívají jako
+přímý proud.
+
+
+4. DOMÉNOVÉ ODDĚLENÍ
+--------------------
+
+Všechny vlastní kryptografické operace používají prefix:
+
+    EntropyForge-3.2|
+
+a samostatné štítky:
+
+    boot|
+    event|
+    derive|
+    stream|
+    update|
+    external-data|
+    remote-bundle|
+    external-set|
+    external-pool|
+
+HMAC expander počítá 64bajtové bloky HMAC-SHA-512 s big-endian
+64bitovým čítačem od hodnoty 1. Python i HTML verze mají společný test se
+známou odpovědí pro ověření shodné konstrukce.
+
+
+5. ČASOVÁNÍ UDÁLOSTÍ
+--------------------
+
+Časové odstupy kliknutí, pohybu, kolečka, dotyku a stisku klávesy mohou
+diverzifikovat interní stav. Nezaznamenává se znak, keyCode ani obsah
+textu. Časování je ovlivnitelné prostředím a útočníkem, proto:
+
+- nedostává žádný kredit min-entropie,
+- nikdy není jediným zdrojem,
+- nezvyšuje zobrazovanou bezpečnostní garanci.
+
+
+6. EXTERNÍ DATA A VÍCE ZDROJŮ
+------------------------------
+
+Text se striktně dekóduje do kanonických bajtů. Podporován je binární,
+hex, Base64/Base64 URL, seznam desítkových bajtů a textové bity.
+
+Kontroly probíhají až po dekódování:
+
+- 4096 až 33 554 432 bajtů,
+- alespoň dva různé bajty,
+- podíl jedniček nesmí být extrémně blízko 0 nebo 1,
+- jeden bajt nesmí tvořit více než 95 % vzorku,
+- nesmí být 2048 stejných bajtů za sebou.
+
+Tyto podmínky jsou pouze pojistka proti prázdným, konstantním nebo zjevně
+poškozeným souborům. Deterministická posloupnost je může snadno splnit.
+Nejde o odhad min-entropie podle NIST SP 800-90B ani o důkaz fyzického
+původu.
+
+Kanonický SHA-256 otisk slouží k identifikaci dat, detekci replaye v
+jedné relaci a kontrole neporušenosti, nikoli k jejich
+utajení. Dekódované bajty se doménově odděleně zahashují SHA-512 a
+zpracují HMAC se čerstvými systémovými bajty a interním poolem. Původní
+obsah se po zpracování nepoužívá jako výstupní proud.
+
+Lze přidat až osm externích souborů či .efb balíčků. Odebrání posledního
+nebo všech zdrojů zahodí rezervoár a znovu vytvoří externí stav pouze
+z ponechaných 512bitových otisků.
+
+
+7. ENTROPYFORGE REMOTE BUNDLE
+------------------------------
+
+Soubor .efb má dva kanonické JSON obaly:
+
+    outer = schema || Base64(payload) || SHA-256(payload)
+    payload = schema || created_utc || collector || sources[]
+
+Parser v Pythonu i HTML požaduje:
+
+- přesnou verzi schématu a přesnou množinu polí,
+- kanonický UTF-8 JSON bez duplicitních klíčů,
+- shodu SHA-256 celého payloadu i každé komponenty,
+- přenositelný profil metadat: bezpečná celá čísla, omezenou hloubku,
+  počet položek a ASCII klíče,
+- 1 až 8 unikátně identifikovaných komponent,
+- unikátní SHA-256 otisk dat každé komponenty,
+- 32 B až 128 KiB dat na komponentu,
+- veřejný beacon označený visibility=public,
+- vzdálený fyzický zdroj označený visibility=provider_known,
+- základní odmítnutí konstantních dat.
+
+Celý payload je po validaci doménově odděleně zahashován. Jeho neklíčovaný
+SHA-256 otisk detekuje změnu, ale sám nedokazuje, kdo balíček vytvořil.
+Metadata původu lze přepsat spolu s novým otiskem; aplikace je proto
+nevydává za nezávisle ověřenou certifikaci.
+
+Otisky komponent se pamatují po celou relaci i napříč více balíčky.
+Stejná data pod jiným názvem proto nejsou započítána jako další zdroj.
+
+Samostatný sběrač podporuje:
+
+drand quicknet
+    Chain hash je připnutý. Konkrétní round se načte ze tří HTTPS relayů,
+    musí se shodnout nejméně dva, podpis má očekávaných 48 bajtů a
+    randomness musí být SHA-256 podpisu.
+    Plný BLS podpis se uchová, ale bez externí kryptografické knihovny se
+    lokálně neověřuje. Výsledek je veřejný.
+
+NIST Randomness Beacon 2.0
+    Pulse musí mít očekávanou verzi a stav a přesné URI se znovu načte.
+    NIST podpis se uchová, ale lokálně se neověřuje. Výsledek je veřejný.
+
+RANDOM.ORG Signed API
+    Vyžaduje vlastní API klíč. Sběrač žádá čerstvý, nepředgenerovaný
+    4096B blok, do podepsaných userData vloží náhodný request nonce a
+    podpis ověří metodou verifySignature. API klíč se neukládá.
+    Poskytovatel však vzdálené bajty zná.
+    Pokud by odpověď neočekávaně obsahovala nezahashovaný API klíč,
+    sběrač ji odmítne místo zapsání do balíčku.
+
+Veřejné beacony mohou zlepšit nezávislost, auditovatelnost nebo férovost,
+ale po zveřejnění nepřidávají tajnou entropii pro hesla či klíče.
+Provider-known fyzická data mohou pomoci proti některým selháním lokálního
+zdroje, ale vytvářejí důvěru v poskytovatele a TLS. Ani jeden typ nikdy
+nenahrazuje čerstvý lokální OS CSPRNG.
+
+
+8. ROVNOMĚRNÉ MAPOVÁNÍ
+-----------------------
+
+Hodnota v intervalu [0, upper) se získá rejection samplingem:
+
+1. Načte se minimální počet náhodných bitů.
+2. Přebytečné horní bity se maskují.
+3. Kandidát mimo interval se zahodí.
+
+Nevzniká modulo bias. Unikátní čísla a možnosti používají částečný
+Fisherův–Yatesův výběr.
+
+Hesla se rovnoměrně generují z celé zvolené abecedy. Celý kandidát se
+zahodí, pokud neobsahuje každou požadovanou skupinu. Podmíněné rozdělení
+mezi platnými hesly zůstává rovnoměrné.
+
+UUID mají náhodných 16 bajtů a následně nastavené bity verze 4 a varianty
+RFC 4122.
+
+
+9. DIAGNOSTIKA
+--------------
+
+Vestavěná diagnostika na 65 536 bajtech kontroluje:
+
+- přibližný podíl nul a jedniček,
+- Pearsonův chí-kvadrát četností bajtů,
+- duplicitní 64bajtové bloky.
+
+Je to funkční smoke test schopný odhalit některé hrubé chyby. Úspěch
+nedokazuje kryptografickou nepředvídatelnost, nezávislost, min-entropii
+ani fyzickou náhodnost.
+
+
+10. PŘEDPOKLADY A OMEZENÍ
+--------------------------
+
+- Zařízení, OS, Python nebo prohlížeč nejsou kompromitované.
+- Standardní implementace OS CSPRNG, SHA-256, SHA-512 a HMAC-SHA-512
+  fungují správně.
+- Zdrojový soubor nebyl po stažení škodlivě změněn; lze ověřit
+  SHA256SUMS.txt.
+- Generátor není nezávisle auditovaný ani certifikovaný.
+- Není to fyzický TRNG, FIPS validovaný modul ani náhrada HSM.
+- Podkladový certifikát Windows se nevztahuje na EntropyForge ani na
+  libovolnou verzi Windows. Certifikační tvrzení vyžaduje přesnou
+  shodu s veřejnou Security Policy a aktuálním záznamem CMVP.
+- Zapnutí systémové FIPS zásady může ovlivnit jiné aplikace a protokoly;
+  EntropyForge ji proto nikdy samo nezapíná ani nemění registr.
+- Lokální bridge rozšiřuje CSP pouze o connect-src 'self'. Nevytváří
+  vzdálené spojení, ale kompromitovaný lokální proces, prohlížeč nebo
+  uživatelský účet může stále získat výstup.
+- Aplikace negarantuje bezpečné vymazání tajemství z RAM, schránky,
+  swapu, historie stažených souborů či záloh.
+- Škodlivé rozšíření prohlížeče, malware, keylogger nebo proces s právem
+  číst paměť může získat výstup.
+- Uživatelem uložené TXT soubory nejsou šifrované.
+- Vzdálený sběrač spoléhá na správné systémové ověření TLS certifikátů,
+  dostupnost služeb a na výslovně popsané validační kontroly.
+- HTTPS přesměrování nesmí změnit hostitele, port ani přejít na
+  nešifrovaný protokol; API klíč se neposílá na jiný origin.
+- NIST a drand podpisy se bez dodatečných kryptografických knihoven
+  lokálně plně neověřují.
+- RANDOM.ORG verifySignature je voláno přes stejnou vzdálenou službu;
+  podepsaný objekt se uchovává pro případné nezávislé ověření.
+- Starý .efb balíček lze po restartu znovu načíst. Čas vytvoření se
+  zachovává v metadatech, ale aplikace nepřipisuje balíčku čerstvou
+  entropii jen kvůli časovému razítku.
+- .efb s provider-known daty ukládá vzdálené náhodné bajty nešifrovaně.
+  Kdo soubor získá, zná tuto doplňkovou složku; čerstvý OS CSPRNG přesto
+  zůstává samostatným bezpečnostním základem výsledku.
+
+
+11. PROČ NE „MAXIMÁLNÍ POČET BITŮ ENTROPIE“
+--------------------------------------------
+
+Entropie je vlastnost zdroje a jeho modelu, nikoli grafického ukazatele
+nebo výsledku několika statistických testů. EntropyForge proto uvádí
+ověřitelnou konstrukční garanci — použití systémového CSPRNG — a
+nepřipisuje dodatečné bity neověřenému časování či souboru.
