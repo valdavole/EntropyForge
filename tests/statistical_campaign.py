@@ -129,10 +129,10 @@ def interval_campaign(engine: EntropyEngine) -> dict[str, object]:
 
 def configure_external(engine: EntropyEngine) -> None:
     raw = bytes(range(256)) * 16
-    with tempfile.NamedTemporaryFile() as handle:
-        handle.write(raw)
-        handle.flush()
-        engine.load_external_file(handle.name, "binary")
+    with tempfile.TemporaryDirectory() as directory:
+        source_path = Path(directory) / "external-source.bin"
+        source_path.write_bytes(raw)
+        engine.load_external_file(str(source_path), "binary")
 
 
 def main() -> int:

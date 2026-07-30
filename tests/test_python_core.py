@@ -198,21 +198,24 @@ class EntropyEngineTests(unittest.TestCase):
         )
         for encoded, hint in representations:
             with self.subTest(hint=hint):
-                with tempfile.NamedTemporaryFile() as handle:
-                    handle.write(encoded)
-                    handle.flush()
-                    info = EntropyEngine().load_external_file(handle.name, hint)
+                with tempfile.TemporaryDirectory() as directory:
+                    source_path = Path(directory) / "external-source.bin"
+                    source_path.write_bytes(encoded)
+                    info = EntropyEngine().load_external_file(
+                        str(source_path),
+                        hint,
+                    )
                 self.assertEqual(info["decoded_size"], len(raw))
                 self.assertEqual(info["digest"], expected)
 
     def test_too_small_base64_source_is_rejected_after_decoding(self) -> None:
         raw = bytes(range(256)) * 12
         encoded = base64.urlsafe_b64encode(raw).rstrip(b"=")
-        with tempfile.NamedTemporaryFile() as handle:
-            handle.write(encoded)
-            handle.flush()
+        with tempfile.TemporaryDirectory() as directory:
+            source_path = Path(directory) / "too-small-source.txt"
+            source_path.write_bytes(encoded)
             with self.assertRaisesRegex(ValueError, "alespoň 4096"):
-                self.engine.load_external_file(handle.name, "auto")
+                self.engine.load_external_file(str(source_path), "auto")
 
     def test_degenerate_external_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "degenerovaný"):
@@ -222,10 +225,10 @@ class EntropyEngineTests(unittest.TestCase):
         self.engine.set_mode("external")
         self.assertEqual(self.engine.effective_mode, "hybrid")
         raw = bytes(range(256)) * 16
-        with tempfile.NamedTemporaryFile() as handle:
-            handle.write(raw)
-            handle.flush()
-            self.engine.load_external_file(handle.name, "binary")
+        with tempfile.TemporaryDirectory() as directory:
+            source_path = Path(directory) / "external-source.bin"
+            source_path.write_bytes(raw)
+            self.engine.load_external_file(str(source_path), "binary")
         self.assertEqual(self.engine.effective_mode, "external")
         self.assertEqual(self.engine.external_source_count, 1)
         self.engine.remove_external()
@@ -235,15 +238,12 @@ class EntropyEngineTests(unittest.TestCase):
     def test_multiple_external_sources_stack_and_duplicates_are_rejected(self) -> None:
         first = bytes(range(256)) * 16
         second = bytes(reversed(range(256))) * 16
-        paths: list[str] = []
-        handles = []
-        try:
+        with tempfile.TemporaryDirectory() as directory:
+            paths: list[str] = []
             for raw in (first, second):
-                handle = tempfile.NamedTemporaryFile()
-                handle.write(raw)
-                handle.flush()
-                handles.append(handle)
-                paths.append(handle.name)
+                source_path = Path(directory) / f"source-{len(paths)}.bin"
+                source_path.write_bytes(raw)
+                paths.append(str(source_path))
             first_info = self.engine.load_external_file(paths[0], "binary")
             second_info = self.engine.load_external_file(paths[1], "binary")
             self.assertEqual(first_info["active_source_count"], 1)
@@ -255,30 +255,23 @@ class EntropyEngineTests(unittest.TestCase):
             self.assertEqual(removed["digest"], hashlib.sha256(second).hexdigest())
             self.assertEqual(self.engine.external_source_count, 1)
             self.assertEqual(self.engine.effective_mode, "external")
-        finally:
-            for handle in handles:
-                handle.close()
 
     def test_external_source_count_is_bounded(self) -> None:
-        handles = []
-        try:
+        with tempfile.TemporaryDirectory() as directory:
+            paths: list[str] = []
             for offset in range(entropy_forge.MAX_EXTERNAL_SOURCES + 1):
                 raw = bytes((value + offset) & 0xFF for value in range(4_096))
-                handle = tempfile.NamedTemporaryFile()
-                handle.write(raw)
-                handle.flush()
-                handles.append(handle)
-            for handle in handles[: entropy_forge.MAX_EXTERNAL_SOURCES]:
-                self.engine.load_external_file(handle.name, "binary")
+                source_path = Path(directory) / f"source-{offset}.bin"
+                source_path.write_bytes(raw)
+                paths.append(str(source_path))
+            for source_path in paths[: entropy_forge.MAX_EXTERNAL_SOURCES]:
+                self.engine.load_external_file(source_path, "binary")
             self.assertEqual(
                 self.engine.external_source_count,
                 entropy_forge.MAX_EXTERNAL_SOURCES,
             )
             with self.assertRaisesRegex(ValueError, "nejvýše 8"):
-                self.engine.load_external_file(handles[-1].name, "binary")
-        finally:
-            for handle in handles:
-                handle.close()
+                self.engine.load_external_file(paths[-1], "binary")
 
     def test_integer_digit_limit_matches_html(self) -> None:
         parse = entropy_forge.EntropyForgeApp._parse_int

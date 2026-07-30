@@ -145,19 +145,19 @@ class BundleTests(unittest.TestCase):
             EXPECTED_PORTABLE_BUNDLE_FINGERPRINT,
         )
         engine = EntropyEngine()
-        with tempfile.NamedTemporaryFile(suffix=".efb") as handle:
-            handle.write(raw)
-            handle.flush()
-            info = engine.load_external_file(handle.name, "auto")
+        with tempfile.TemporaryDirectory() as directory:
+            bundle_path = Path(directory) / "remote-entropy.efb"
+            bundle_path.write_bytes(raw)
+            info = engine.load_external_file(str(bundle_path), "auto")
             self.assertEqual(info["source_type"], "remote_bundle")
             self.assertEqual(info["component_count"], 1)
             self.assertEqual(info["decoded_size"], 32)
             self.assertEqual(engine.effective_mode, "external")
             with self.assertRaisesRegex(ValueError, "už byl"):
-                engine.load_external_file(handle.name, "bundle")
+                engine.load_external_file(str(bundle_path), "bundle")
             engine.remove_external()
             with self.assertRaisesRegex(ValueError, "už byl"):
-                engine.load_external_file(handle.name, "bundle")
+                engine.load_external_file(str(bundle_path), "bundle")
 
 
 if __name__ == "__main__":
